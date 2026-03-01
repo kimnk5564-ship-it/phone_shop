@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지 - 행사폰</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            padding: 120px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .admin-header {
+            margin-bottom: 2rem;
+        }
+
+        .admin-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-title {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">📱</span>
+                <span class="logo-text">행사폰</span>
+            </a>
+            <nav class="nav-links">
+                <a href="special.html">오늘의 특가</a>
+                <a href="prices.html">시세표</a>
+                <a href="index.html#location">성지찾기</a>
+                <a href="index.html#support">고객센터</a>
+                <a href="admin.html" class="admin-btn" style="color: var(--primary-color); display: none;">관리자 페이지</a>
+                <a href="login.html" class="login-btn">로그인/회원가입</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="admin-container">
+            <div class="admin-card">
+                <div class="admin-header">
+                    <span style="font-size: 4rem; display: block; margin-bottom: 1rem;">⚙️</span>
+                    <h1 class="admin-title">관리자 대시보드</h1>
+                    <p style="color: #666; font-size: 1.1rem;">환영합니다, 관리자님! 현재 관리자 페이지 준비 중입니다.</p>
+                </div>
+                <div style="margin-top: 2rem; padding: 2rem; background: var(--bg-light); border-radius: 10px;">
+                    <p>추후 이곳에 시세표 관리, 예약 관리, 회원 관리 기능 등이 추가될 예정입니다.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" style="margin-top: 50px;">
+        <div class="container">
+            <div class="footer-info">
+                <h3 class="footer-logo">행사폰</h3>
+                <p>상호: (주)행사폰 | 대표: 홍길동 | 사업자등록번호: 123-45-67890</p>
+                <p>통신판매업신고: 제2026-서울강남-0001호 | 소재지: 서울특별시 강남구 테헤란로 123</p>
+                <p class="copyright">© 2026 행사폰. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let user = Auth.getCurrentUser();
+            if (!user || !user.isAdmin) {
+                alert('관리자만 접근할 수 있는 페이지입니다.');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

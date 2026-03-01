@@ -51,6 +51,16 @@ const Auth = {
         let user = this.getCurrentUser();
         // Update header login button
         let loginBtns = document.querySelectorAll('.login-btn');
+        let adminBtns = document.querySelectorAll('.admin-btn');
+
+        adminBtns.forEach(btn => {
+            if (user && user.isAdmin) {
+                btn.style.display = 'inline-block';
+            } else {
+                btn.style.display = 'none';
+            }
+        });
+
         loginBtns.forEach(btn => {
             if (user) {
                 btn.textContent = '로그아웃';
