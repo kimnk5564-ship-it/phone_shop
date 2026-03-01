@@ -66,10 +66,8 @@
                 </div>
 
                 <div class="alert-box"
-                    style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left; border: 1px solid #ffeeba;">
-                    <strong>ℹ️ 안내사항:</strong> Vercel과 같은 정적 호스팅 환경에서는 데이터베이스가 없으므로 본 페이지에서 저장한 내용은 <b>관리자님의 현재
-                        브라우저(기기)</b>에만 임시로 실시간 반영됩니다. 모든 사용자에게 변경된 시세표를 적용하시려면 백엔드 연결(Firebase 등)이 필요하며, 현재는 변경 내역 확인용으로
-                    작동합니다.
+                    style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left; border: 1px solid #c3e6cb;">
+                    <strong>✅ 연결됨:</strong> 데이터베이스(Firebase)가 연동되어 아래 저장된 가격은 방문하는 <b>모든 사용자에게 실시간으로 즉시 반영</b>됩니다.
                 </div>
 
                 <div id="admin-prices-container" style="overflow-x: auto; margin-bottom: 20px;">
@@ -94,6 +92,9 @@
     </footer>
 
     <script src="auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-init.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             let user = Auth.getCurrentUser();
@@ -102,7 +103,7 @@
                 window.location.href = 'index.html';
                 return;
             }
-            generateAdminTable();
+            loadAdminTable();
         });
 
         const models = [
@@ -130,9 +131,21 @@
             { id: 'lgu_ch', label: 'LGU+ 기변' },
         ];
 
-        function generateAdminTable() {
+        function loadAdminTable() {
+            db.collection('prices').doc('current').get().then((doc) => {
+                let savedPrices = {};
+                if (doc.exists) {
+                    savedPrices = doc.data();
+                }
+                generateAdminTable(savedPrices);
+            }).catch((error) => {
+                console.error("Error fetching prices:", error);
+                generateAdminTable({}); // load empty on error
+            });
+        }
+
+        function generateAdminTable(savedPrices) {
             const container = document.getElementById('admin-prices-container');
-            const savedPrices = JSON.parse(localStorage.getItem('adminPrices')) || {};
 
             let html = '<table class="price-table wide-table" style="width:100%; border-collapse: collapse;">';
             html += '<thead><tr><th style="padding:10px; border:1px solid #ddd;">기종</th><th style="padding:10px; border:1px solid #ddd;">용량</th>';
@@ -157,6 +170,10 @@
         }
 
         function savePrices() {
+            const btn = document.querySelector('button[onclick="savePrices()"]');
+            btn.textContent = '저장 중...';
+            btn.disabled = true;
+
             let prices = {};
             const inputs = document.querySelectorAll('#admin-prices-container input');
             inputs.forEach(input => {
@@ -164,8 +181,19 @@
                     prices[input.id] = input.value.trim();
                 }
             });
-            localStorage.setItem('adminPrices', JSON.stringify(prices));
-            alert('임시 저장이 완료되었습니다!\n상단 메뉴의 시세표(prices.html)로 이동하시면 입력한 가격이 실시간 반영되어 있습니다.\n\n(참고: 다른 사람 접속 시에도 보이게 하려면 백엔드 DB 연동이 필요합니다)');
+
+            db.collection('prices').doc('current').set(prices)
+                .then(() => {
+                    alert('성공적으로 저장되었습니다! 모든 접속자들에게 실시간 반영됩니다.');
+                })
+                .catch((error) => {
+                    console.error("Error saving prices: ", error);
+                    alert('저장 중 오류가 발생했습니다.');
+                })
+                .finally(() => {
+                    btn.textContent = '💾 실시간 가격 저장하기';
+                    btn.disabled = false;
+                });
         }
     </script>
 </body>

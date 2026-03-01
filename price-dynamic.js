@@ -34,17 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. Load custom prices
-    const savedPrices = JSON.parse(localStorage.getItem('adminPrices')) || {};
-    document.querySelectorAll('td[data-price-id]').forEach(td => {
-        let id = td.getAttribute('data-price-id');
-        if (savedPrices[id] !== undefined && savedPrices[id] !== '') {
-            if (savedPrices[id] === '문의') {
-                td.textContent = '문의';
-                td.className = 'highlight-error'; // Add error styling for '문의'
-            } else {
-                td.textContent = savedPrices[id];
-            }
+    // 2. Load custom prices from Firestore in real-time
+    const pricesRef = db.collection('prices').doc('current');
+    pricesRef.onSnapshot((doc) => {
+        if (doc.exists) {
+            const savedPrices = doc.data();
+            document.querySelectorAll('td[data-price-id]').forEach(td => {
+                let id = td.getAttribute('data-price-id');
+                if (savedPrices[id] !== undefined && savedPrices[id] !== '') {
+                    if (savedPrices[id] === '문의') {
+                        td.textContent = '문의';
+                        td.className = 'highlight-error'; // Add error styling for '문의'
+                    } else {
+                        td.textContent = savedPrices[id];
+                        if (td.classList.contains('highlight-error')) {
+                            td.classList.remove('highlight-error');
+                        }
+                    }
+                }
+            });
         }
     });
 });
