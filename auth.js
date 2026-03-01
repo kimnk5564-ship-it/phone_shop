@@ -3,7 +3,10 @@
 
 const Auth = {
     // Register a new user
-    register: function(username, password, name) {
+    register: function (username, password, name) {
+        if (username === 'cjsdhlcjs97') {
+            return { success: false, message: '이 아이디는 사용할 수 없습니다.' };
+        }
         let users = JSON.parse(localStorage.getItem('users')) || {};
         if (users[username]) {
             return { success: false, message: '이미 존재하는 아이디입니다.' };
@@ -14,10 +17,17 @@ const Auth = {
     },
 
     // Login a user
-    login: function(username, password) {
+    login: function (username, password) {
+        // 관리자 계정 하드코딩 체크
+        if (username === 'cjsdhlcjs97' && password === 'gkddkfl12@') {
+            let sessionData = { username: username, name: '행사폰 어드민', isAdmin: true };
+            localStorage.setItem('currentUser', JSON.stringify(sessionData));
+            return { success: true, user: sessionData };
+        }
+
         let users = JSON.parse(localStorage.getItem('users')) || {};
         if (users[username] && users[username].password === password) {
-            let sessionData = { username: username, name: users[username].name };
+            let sessionData = { username: username, name: users[username].name, isAdmin: false };
             localStorage.setItem('currentUser', JSON.stringify(sessionData));
             return { success: true, user: sessionData };
         }
@@ -25,19 +35,19 @@ const Auth = {
     },
 
     // Logout
-    logout: function() {
+    logout: function () {
         localStorage.removeItem('currentUser');
     },
 
     // Get current logged in user
-    getCurrentUser: function() {
+    getCurrentUser: function () {
         let user = localStorage.getItem('currentUser');
         return user ? JSON.parse(user) : null;
     },
 
     // Initialize UI based on auth state
     // Call this on every page load
-    initUI: function() {
+    initUI: function () {
         let user = this.getCurrentUser();
         // Update header login button
         let loginBtns = document.querySelectorAll('.login-btn');
