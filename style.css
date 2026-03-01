@@ -361,9 +361,7 @@ body {
         padding: 1rem 1.5rem;
     }
 
-    .nav-links {
-        display: none;
-    }
+    /* .nav-links 의 display: none 삭제 (하단 햄버거 메뉴에서 제어) */
 
     .hero-banner {
         padding: 7rem 1.5rem 3rem;
@@ -825,4 +823,112 @@ body {
 .copyright {
     margin-top: 2rem;
     font-size: 0.9rem;
+}
+
+/* Mobile Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        right: -100%;
+        top: 0;
+        height: 100vh;
+        width: 250px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        padding-top: 80px;
+        gap: 1.5rem;
+        transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Responsive Tables */
+    .table-container {
+        border-radius: 10px;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+    }
+
+    .price-table {
+        min-width: 650px;
+        /* force horizontal scroll */
+    }
+
+    .price-table th,
+    .price-table td {
+        padding: 0.8rem 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* Tabs adjustments for mobile */
+    .tabs-wrapper {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        justify-content: flex-start;
+    }
+
+    .tab-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .sub-tabs-wrapper,
+    .nested-tabs-wrapper {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .sub-tab-btn,
+    .nested-tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    #admin-prices-container table input {
+        padding: 5px;
+        font-size: 0.85rem;
+    }
 }
