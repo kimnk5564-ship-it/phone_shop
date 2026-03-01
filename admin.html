@@ -61,12 +61,23 @@
             <div class="admin-card">
                 <div class="admin-header">
                     <span style="font-size: 4rem; display: block; margin-bottom: 1rem;">⚙️</span>
-                    <h1 class="admin-title">관리자 대시보드</h1>
-                    <p style="color: #666; font-size: 1.1rem;">환영합니다, 관리자님! 현재 관리자 페이지 준비 중입니다.</p>
+                    <h1 class="admin-title">관리자 대시보드 - 시세표 관리</h1>
+                    <p style="color: #666; font-size: 1.1rem;">시세표 금액을 실시간으로 수정하고 반영하세요.</p>
                 </div>
-                <div style="margin-top: 2rem; padding: 2rem; background: var(--bg-light); border-radius: 10px;">
-                    <p>추후 이곳에 시세표 관리, 예약 관리, 회원 관리 기능 등이 추가될 예정입니다.</p>
+
+                <div class="alert-box"
+                    style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left; border: 1px solid #ffeeba;">
+                    <strong>ℹ️ 안내사항:</strong> Vercel과 같은 정적 호스팅 환경에서는 데이터베이스가 없으므로 본 페이지에서 저장한 내용은 <b>관리자님의 현재
+                        브라우저(기기)</b>에만 임시로 실시간 반영됩니다. 모든 사용자에게 변경된 시세표를 적용하시려면 백엔드 연결(Firebase 등)이 필요하며, 현재는 변경 내역 확인용으로
+                    작동합니다.
                 </div>
+
+                <div id="admin-prices-container" style="overflow-x: auto; margin-bottom: 20px;">
+                    <!-- JS will populate prices editor table here -->
+                </div>
+
+                <button onclick="savePrices()" class="btn-primary"
+                    style="padding: 15px 30px; font-size: 1.2rem; cursor:pointer;">💾 실시간 가격 저장하기</button>
             </div>
         </div>
     </main>
@@ -89,8 +100,73 @@
             if (!user || !user.isAdmin) {
                 alert('관리자만 접근할 수 있는 페이지입니다.');
                 window.location.href = 'index.html';
+                return;
             }
+            generateAdminTable();
         });
+
+        const models = [
+            { name: "아이폰 17", capacity: "256G" },
+            { name: "아이폰 17", capacity: "512G" },
+            { name: "아이폰 17 AIR", capacity: "256G" },
+            { name: "아이폰 17 AIR", capacity: "512G" },
+            { name: "아이폰 17 PRO", capacity: "256G" },
+            { name: "아이폰 17 PRO", capacity: "512G" },
+            { name: "아이폰 17 PRO MAX", capacity: "256G" },
+            { name: "아이폰 17 PRO MAX", capacity: "512G" },
+            { name: "S26", capacity: "512G" },
+            { name: "S26+", capacity: "512G" },
+            { name: "S26 Ultra", capacity: "512G" },
+            { name: "Z플립7", capacity: "256G" },
+            { name: "Z폴드7", capacity: "256G" },
+        ];
+
+        const carriers = [
+            { id: 'skt_mv', label: 'SKT 이동' },
+            { id: 'skt_ch', label: 'SKT 기변' },
+            { id: 'kt_mv', label: 'KT 이동' },
+            { id: 'kt_ch', label: 'KT 기변' },
+            { id: 'lgu_mv', label: 'LGU+ 이동' },
+            { id: 'lgu_ch', label: 'LGU+ 기변' },
+        ];
+
+        function generateAdminTable() {
+            const container = document.getElementById('admin-prices-container');
+            const savedPrices = JSON.parse(localStorage.getItem('adminPrices')) || {};
+
+            let html = '<table class="price-table wide-table" style="width:100%; border-collapse: collapse;">';
+            html += '<thead><tr><th style="padding:10px; border:1px solid #ddd;">기종</th><th style="padding:10px; border:1px solid #ddd;">용량</th>';
+            carriers.forEach(c => html += `<th style="padding:10px; border:1px solid #ddd;">${c.label}</th>`);
+            html += '</tr></thead><tbody>';
+
+            models.forEach(m => {
+                html += `<tr><td style="padding:10px; border:1px solid #ddd;">${m.name}</td><td style="padding:10px; border:1px solid #ddd;">${m.capacity}</td>`;
+                let modelKey = m.name.trim().replace(/\s+/g, '_').toLowerCase();
+                let capKey = m.capacity.trim().toLowerCase();
+
+                carriers.forEach(c => {
+                    let id = `${modelKey}_${capKey}_${c.id}`;
+                    let val = savedPrices[id] || '';
+                    html += `<td style="padding:5px; border:1px solid #ddd;"><input type="text" id="${id}" value="${val}" style="width: 100%; max-width:60px; padding:8px; text-align:center; border:1px solid #ccc; border-radius:4px;" placeholder="금액"></td>`;
+                });
+                html += `</tr>`;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function savePrices() {
+            let prices = {};
+            const inputs = document.querySelectorAll('#admin-prices-container input');
+            inputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    prices[input.id] = input.value.trim();
+                }
+            });
+            localStorage.setItem('adminPrices', JSON.stringify(prices));
+            alert('임시 저장이 완료되었습니다!\n상단 메뉴의 시세표(prices.html)로 이동하시면 입력한 가격이 실시간 반영되어 있습니다.\n\n(참고: 다른 사람 접속 시에도 보이게 하려면 백엔드 DB 연동이 필요합니다)');
+        }
     </script>
 </body>
 
