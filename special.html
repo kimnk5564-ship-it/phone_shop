@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>행사폰 - 오늘의 특가</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header-spacing {
+            padding-top: 80px;
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--white) 100%);
+            min-height: 100vh;
+        }
+
+        .benefit-list {
+            list-style: none;
+            text-align: left;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .benefit-list li {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #495057;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .benefit-list li::before {
+            content: '🎁';
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">📱</span>
+                <span class="logo-text">행사폰</span>
+            </a>
+            <nav class="nav-links">
+                <a href="special.html" style="color: var(--primary-color);">오늘의 특가</a>
+                <a href="prices.html">시세표</a>
+                <a href="index.html#location">성지찾기</a>
+                <a href="index.html#support">고객센터</a>
+                <a href="login.html" class="login-btn">로그인/회원가입</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-header-spacing">
+        <section class="section">
+            <div class="container section-inner text-center">
+                <h2 class="section-title">오늘의 <span>단독 특가</span></h2>
+                <p class="section-desc">한정 수량 진행! 행사폰에서만 만날 수 있는 압도적인 혜택과 특가를 확인하세요.</p>
+
+                <div class="grid cards-grid">
+                    <div class="card">
+                        <div class="card-badge">초특가 + 사은품</div>
+                        <h3>Galaxy S26 Ultra</h3>
+                        <p class="price-origin">출고가 1,698,400원</p>
+                        <p class="price-sale">행사가 <span>상담문의</span></p>
+                        <ul class="benefit-list">
+                            <li>갤럭시 워치7 무상 증정</li>
+                            <li>삼성 정품 케이스 & 필름 100% 증정</li>
+                            <li>VIP 전용 고가 요금제 지원금 최대</li>
+                            <li>제휴카드 결제 시 추가 50만원 즉시할인</li>
+                        </ul>
+                        <a href="index.html#location" class="cta-button"
+                            style="padding: 0.8rem 2rem; font-size: 1.1rem;">지금 바로 문의하기</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-badge">인기폭발</div>
+                        <h3>iPhone 17 Pro</h3>
+                        <p class="price-origin">출고가 1,550,000원</p>
+                        <p class="price-sale">행사가 <span>상담문의</span></p>
+                        <ul class="benefit-list">
+                            <li>애플 정품 20W 충전기 증정</li>
+                            <li>맥세이프 고급 케이스 무상 지원</li>
+                            <li>쓰던 폰 최고가 매입 보장 (당일 입금)</li>
+                            <li>프리미엄 가족 결합 시 통신비 반값</li>
+                        </ul>
+                        <a href="index.html#location" class="cta-button"
+                            style="padding: 0.8rem 2rem; font-size: 1.1rem;">지금 바로 문의하기</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-badge">가성비갑 0원</div>
+                        <h3>Galaxy A55</h3>
+                        <p class="price-origin">출고가 599,500원</p>
+                        <p class="price-sale">행사가 <span>0원~</span></p>
+                        <ul class="benefit-list">
+                            <li>기기값 100% 전액 지원 (공짜폰)</li>
+                            <li>부모님 / 자녀 효도폰 플랜 특별 지원</li>
+                            <li>기본 케이스 및 액정 보호필름 평생 무료</li>
+                            <li>방문 개통 시 교통비 현금 지원</li>
+                        </ul>
+                        <a href="index.html#location" class="cta-button"
+                            style="padding: 0.8rem 2rem; font-size: 1.1rem;">지금 바로 문의하기</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-info">
+                <h3 class="footer-logo">행사폰</h3>
+                <p>상호: (주)행사폰 | 대표: 홍길동 | 사업자등록번호: 123-45-67890</p>
+                <p>통신판매업신고: 제2026-서울강남-0001호 | 소재지: 서울특별시 강남구 테헤란로 123</p>
+                <p class="copyright">© 2026 행사폰. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+</body>
+
+</html>

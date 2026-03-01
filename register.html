@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>행사폰 - 회원가입</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+    <style>
+        .register-page {
+            /* login.css ë¥¼ ì¬ì¬ì©íë¯ë¡ height íì¥ */
+            height: auto;
+            min-height: 100vh;
+            padding: 4rem 1rem;
+        }
+
+        .register-container {
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body class="login-page register-page">
+    <div class="login-wrapper">
+        <!-- Animated Background Elements -->
+        <div class="bg-element elem-1"></div>
+        <div class="bg-element elem-2"></div>
+
+        <div class="login-container register-container">
+            <div class="login-header">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">📱</span>
+                    <span class="logo-text">행사폰</span>
+                </a>
+                <h2>회원가입</h2>
+                <p>최소한의 정보로 빠르게 가입하세요</p>
+            </div>
+
+            <form class="login-form" id="registerForm">
+                <div class="input-group">
+                    <label for="reg-id">아이디</label>
+                    <input type="text" id="reg-id" placeholder="사용할 아이디를 입력하세요" required>
+                </div>
+                <!-- 최소 정보 수집을 위해 이메일/전화번호 제외 -->
+                <div class="input-group">
+                    <label for="reg-name">이름 (또는 닉네임)</label>
+                    <input type="text" id="reg-name" placeholder="이름 또는 닉네임을 입력하세요" required>
+                </div>
+                <div class="input-group">
+                    <label for="reg-pw">비밀번호</label>
+                    <input type="password" id="reg-pw" placeholder="비밀번호를 입력하세요" required>
+                </div>
+                <div class="input-group">
+                    <label for="reg-pw-confirm">비밀번호 확인</label>
+                    <input type="password" id="reg-pw-confirm" placeholder="비밀번호를 다시 한 번 입력하세요" required>
+                </div>
+
+                <div id="reg-error"
+                    style="color: red; margin-bottom: 15px; text-align: center; font-size: 0.9rem; display: none;">
+                </div>
+
+                <button type="submit" class="btn-primary w-100 login-submit">가입하기</button>
+            </form>
+
+            <div class="signup-prompt">
+                이미 계정이 있으신가요? <a href="login.html">로그인</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Script -->
+    <script src="auth.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const id = document.getElementById('reg-id').value;
+            const name = document.getElementById('reg-name').value;
+            const pw = document.getElementById('reg-pw').value;
+            const pwConfirm = document.getElementById('reg-pw-confirm').value;
+            const errorDiv = document.getElementById('reg-error');
+
+            errorDiv.style.display = 'none';
+
+            if (pw !== pwConfirm) {
+                errorDiv.textContent = '비밀번호가 일치하지 않습니다.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            if (id.length < 4) {
+                errorDiv.textContent = '아이디는 4자 이상이어야 합니다.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            const result = Auth.register(id, pw, name);
+
+            if (result.success) {
+                alert(result.message);
+                window.location.href = 'login.html';
+            } else {
+                errorDiv.textContent = result.message;
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>
