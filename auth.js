@@ -55,7 +55,17 @@ const Auth = {
             return { success: true, user: this.getCurrentUser() };
         } catch (error) {
             console.error("Firebase Login Error", error);
-            return { success: false, message: '아이디 또는 비밀번호가 일치하지 않습니다.' };
+
+            let errMsg = '알 수 없는 오류가 발생했습니다.';
+            if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                errMsg = '아이디 또는 비밀번호가 일치하지 않습니다.';
+            } else if (error.code === 'auth/too-many-requests') {
+                errMsg = '비밀번호를 너무 많이 틀려 계정이 잠시 잠겼습니다. 나중에 다시 시도해주세요.';
+            } else {
+                errMsg = `로그인 실패 (${error.code})`;
+            }
+
+            return { success: false, message: errMsg };
         }
     },
 
