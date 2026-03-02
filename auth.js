@@ -8,7 +8,7 @@ const Auth = {
 
     // 1. Register a new user
     register: async function (username, password, name) {
-        if (username === 'cjsdhlcjs97' || username.includes('@')) {
+        if (username.includes('@')) {
             return { success: false, message: '이 아이디는 사용할 수 없습니다.' };
         }
 
