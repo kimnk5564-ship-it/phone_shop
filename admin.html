@@ -173,14 +173,16 @@
             }
 
             document.addEventListener('DOMContentLoaded', () => {
-                let user = Auth.getCurrentUser();
-                if (!user || !user.isAdmin) {
-                    alert('관리자만 접근할 수 있는 페이지입니다.');
-                    window.location.href = 'index.html';
-                    return;
-                }
-                loadAdminTable();
-                loadAdminStats();
+                firebase.auth().onAuthStateChanged((user) => {
+                    const currentUser = Auth.getCurrentUser();
+                    if (!currentUser || !currentUser.isAdmin) {
+                        alert('관리자만 접근할 수 있는 페이지입니다.');
+                        window.location.href = 'index.html';
+                        return;
+                    }
+                    loadAdminTable();
+                    loadAdminStats();
+                });
             });
 
             const models = [
@@ -291,9 +293,9 @@
 
             // --- One Time Auto-Sync for New Prices ---
             document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(() => {
-                    let user = Auth.getCurrentUser();
-                    if (user && user.isAdmin && localStorage.getItem('force_update_prices_mar') !== 'true') {
+                firebase.auth().onAuthStateChanged((user) => {
+                    const currentUser = Auth.getCurrentUser();
+                    if (currentUser && currentUser.isAdmin && localStorage.getItem('force_update_prices_mar') !== 'true') {
                         db.collection('prices').doc('current').set(defaultPrices).then(() => {
                             localStorage.setItem('force_update_prices_mar', 'true');
                             console.log("Prices force-updated to March latest.");
@@ -301,7 +303,7 @@
                             window.location.reload();
                         });
                     }
-                }, 1500);
+                });
             });
         </script>
         <script src="mobile-nav.js"></script>
