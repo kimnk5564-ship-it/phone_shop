@@ -1052,25 +1052,47 @@ body {
         font-size: 0.85rem;
     }
 
-    /* Mobile overrides for Location Cards */
+    /* Mobile overrides for Location Cards: Horizontal Layout */
     .location-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 1rem;
+        gap: 1rem;
+        padding: 0.5rem;
     }
 
     .location-card {
-        padding: 2rem 1.5rem;
+        flex-direction: row;
+        text-align: left;
+        padding: 1.5rem 1.2rem;
+        align-items: center;
+        gap: 1.2rem;
     }
 
     .location-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 2.5rem;
-        margin-bottom: 0.8rem;
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .location-card-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .location-card h3 {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .location-sub {
+        font-size: 0.85rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .btn-kakao {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.95rem;
     }
 }
