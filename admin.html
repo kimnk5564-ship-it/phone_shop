@@ -81,20 +81,33 @@
                     <h2 style="font-size: 1.2rem; color: var(--text-dark); margin-bottom: 15px; text-align: left;">📊 요약
                         통계 (Analytics)</h2>
                     <div style="display: flex; gap: 20px; justify-content: space-around;">
+
+                        <!-- 총 회원가입 수 카드 -->
                         <div
-                            style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); flex: 1;">
-                            <h3 style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 10px;">총 가입자 수</h3>
+                            style="background: white; padding: 25px 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); flex: 1; border-left: 5px solid var(--primary-color);">
+                            <div style="font-size: 2rem; margin-bottom: 5px;">👤</div>
+                            <h3
+                                style="color: var(--text-dark); font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;">
+                                누적 회원가입 수</h3>
                             <div id="stat-total-users"
-                                style="font-size: 2rem; font-weight: 900; color: var(--primary-color);">...</div>
-                            <div style="font-size: 0.8rem; color: #888; margin-top: 5px;">명</div>
+                                style="font-size: 2.5rem; font-weight: 900; color: var(--primary-color);">...</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 5px; font-weight: 500;">사이트에 가입된 전체
+                                회원 수 명</div>
                         </div>
+
+                        <!-- 오늘 방문자 수 카드 -->
                         <div
-                            style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); flex: 1;">
-                            <h3 style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 10px;">오늘 방문자 수</h3>
-                            <div id="stat-today-visits" style="font-size: 2rem; font-weight: 900; color: #10b981;">...
+                            style="background: white; padding: 25px 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); flex: 1; border-left: 5px solid #10b981;">
+                            <div style="font-size: 2rem; margin-bottom: 5px;">👀</div>
+                            <h3
+                                style="color: var(--text-dark); font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;">
+                                오늘 하루 방문자 수</h3>
+                            <div id="stat-today-visits" style="font-size: 2.5rem; font-weight: 900; color: #10b981;">...
                             </div>
-                            <div style="font-size: 0.8rem; color: #888; margin-top: 5px;">명 (당일 고유 세션 기준)</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 5px; font-weight: 500;">오늘 들어온 사람 수
+                                명</div>
                         </div>
+
                     </div>
                 </div>
 
