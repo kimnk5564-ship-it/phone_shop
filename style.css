@@ -1051,4 +1051,26 @@ body {
         padding: 5px;
         font-size: 0.85rem;
     }
+
+    /* Mobile overrides for Location Cards */
+    .location-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .location-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .location-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .location-card h3 {
+        font-size: 1.25rem;
+    }
 }
