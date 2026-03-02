@@ -885,22 +885,47 @@ body {
         transform: translateY(-8px) rotate(-45deg);
     }
 
-    /* Responsive Tables */
+    /* Responsive Tables - Fixed Width on Mobile */
     .table-container {
         border-radius: 10px;
         margin-bottom: 30px;
         padding-bottom: 10px;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: auto;
     }
 
     .price-table {
-        min-width: 650px;
-        /* force horizontal scroll */
+        min-width: 100%;
+        width: 100%;
+        table-layout: fixed;
     }
 
     .price-table th,
     .price-table td {
-        padding: 0.8rem 0.5rem;
-        font-size: 0.9rem;
+        padding: 0.4rem 0.1rem;
+        font-size: 0.75rem;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+        word-break: break-all;
+    }
+
+    .price-table th {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.1rem;
+    }
+
+    .model-name-cell {
+        font-size: 0.8rem !important;
+        letter-spacing: -0.8px;
+    }
+
+    .capacity-cell {
+        font-size: 0.7rem !important;
+    }
+
+    .highlight-price,
+    .highlight-error {
+        font-size: 0.85rem !important;
     }
 
     /* Tabs adjustments for mobile */
