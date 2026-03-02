@@ -147,9 +147,18 @@ const Auth = {
 
             let loginBtns = document.querySelectorAll('.login-btn');
             let adminBtns = document.querySelectorAll('.admin-btn');
+            let profileBtns = document.querySelectorAll('.profile-btn');
 
             adminBtns.forEach(btn => {
                 if (currentUser && currentUser.isAdmin) {
+                    btn.style.display = 'inline-block';
+                } else {
+                    btn.style.display = 'none';
+                }
+            });
+
+            profileBtns.forEach(btn => {
+                if (user) {
                     btn.style.display = 'inline-block';
                 } else {
                     btn.style.display = 'none';
