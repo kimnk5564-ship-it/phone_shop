@@ -139,8 +139,22 @@
     <script>
         function loadAdminStats() {
             // Get Total Users
+            // Sync local users if they are higher than Firebase (for initial migration)
+            let localUsersCount = 0;
+            try {
+                const localUsers = JSON.parse(localStorage.getItem('users') || '{}');
+                localUsersCount = Object.keys(localUsers).length;
+            } catch (e) { }
+
             db.collection('stats').doc('users').onSnapshot((doc) => {
-                const count = doc.exists ? doc.data().count : 0;
+                let count = doc.exists ? doc.data().count : 0;
+
+                // One-time sync for existing local users
+                if (localUsersCount > count) {
+                    db.collection('stats').doc('users').set({ count: localUsersCount }, { merge: true });
+                    count = localUsersCount;
+                }
+
                 document.getElementById('stat-total-users').innerText = count.toLocaleString();
             }, (error) => {
                 console.error("Error fetching users count:", error);
