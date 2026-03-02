@@ -136,6 +136,22 @@
             { id: 'lgu_ch', label: 'LGU+ 기변' },
         ];
 
+        const defaultPrices = {
+            '아이폰_17_256g_skt_mv': '10', '아이폰_17_256g_skt_ch': '57', '아이폰_17_256g_kt_mv': '24', '아이폰_17_256g_kt_ch': '32', '아이폰_17_256g_lgu_mv': '3', '아이폰_17_256g_lgu_ch': '35',
+            '아이폰_17_512g_skt_mv': '40', '아이폰_17_512g_skt_ch': '87', '아이폰_17_512g_kt_mv': '54', '아이폰_17_512g_kt_ch': '62', '아이폰_17_512g_lgu_mv': '33', '아이폰_17_512g_lgu_ch': '65',
+            '아이폰_17_air_256g_skt_mv': '49', '아이폰_17_air_256g_skt_ch': '86', '아이폰_17_air_256g_kt_mv': '53', '아이폰_17_air_256g_kt_ch': '61', '아이폰_17_air_256g_lgu_mv': '-1', '아이폰_17_air_256g_lgu_ch': '64',
+            '아이폰_17_air_512g_skt_mv': '79', '아이폰_17_air_512g_skt_ch': '116', '아이폰_17_air_512g_kt_mv': '83', '아이폰_17_air_512g_kt_ch': '91', '아이폰_17_air_512g_lgu_mv': '29', '아이폰_17_air_512g_lgu_ch': '94',
+            '아이폰_17_pro_256g_skt_mv': '59', '아이폰_17_pro_256g_skt_ch': '106', '아이폰_17_pro_256g_kt_mv': '70', '아이폰_17_pro_256g_kt_ch': '78', '아이폰_17_pro_256g_lgu_mv': '52', '아이폰_17_pro_256g_lgu_ch': '84',
+            '아이폰_17_pro_512g_skt_mv': '89', '아이폰_17_pro_512g_skt_ch': '136', '아이폰_17_pro_512g_kt_mv': '100', '아이폰_17_pro_512g_kt_ch': '108', '아이폰_17_pro_512g_lgu_mv': '82', '아이폰_17_pro_512g_lgu_ch': '114',
+            '아이폰_17_pro_max_256g_skt_mv': '129', '아이폰_17_pro_max_256g_skt_ch': '155', '아이폰_17_pro_max_256g_kt_mv': '138', '아이폰_17_pro_max_256g_kt_ch': '146', '아이폰_17_pro_max_256g_lgu_mv': '129', '아이폰_17_pro_max_256g_lgu_ch': '151',
+            '아이폰_17_pro_max_512g_skt_mv': '문의', '아이폰_17_pro_max_512g_skt_ch': '문의', '아이폰_17_pro_max_512g_kt_mv': '문의', '아이폰_17_pro_max_512g_kt_ch': '문의', '아이폰_17_pro_max_512g_lgu_mv': '문의', '아이폰_17_pro_max_512g_lgu_ch': '문의',
+            's26_512g_skt_mv': '30', 's26_512g_skt_ch': '40', 's26_512g_kt_mv': '15', 's26_512g_kt_ch': '25', 's26_512g_lgu_mv': '15', 's26_512g_lgu_ch': '25',
+            's26+_512g_skt_mv': '50', 's26+_512g_skt_ch': '60', 's26+_512g_kt_mv': '35', 's26+_512g_kt_ch': '45', 's26+_512g_lgu_mv': '35', 's26+_512g_lgu_ch': '45',
+            's26_ultra_512g_skt_mv': '85', 's26_ultra_512g_skt_ch': '95', 's26_ultra_512g_kt_mv': '70', 's26_ultra_512g_kt_ch': '80', 's26_ultra_512g_lgu_mv': '70', 's26_ultra_512g_lgu_ch': '80',
+            'z플립7_256g_skt_mv': '14', 'z플립7_256g_skt_ch': '45', 'z플립7_256g_kt_mv': '28', 'z플립7_256g_kt_ch': '19', 'z플립7_256g_lgu_mv': '11', 'z플립7_256g_lgu_ch': '6',
+            'z폴드7_256g_skt_mv': '122', 'z폴드7_256g_skt_ch': '135', 'z폴드7_256g_kt_mv': '127', 'z폴드7_256g_kt_ch': '118', 'z폴드7_256g_lgu_mv': '110', 'z폴드7_256g_lgu_ch': '107'
+        };
+
         function loadAdminTable() {
             db.collection('prices').doc('current').get().then((doc) => {
                 let savedPrices = {};
@@ -164,7 +180,7 @@
 
                 carriers.forEach(c => {
                     let id = `${modelKey}_${capKey}_${c.id}`;
-                    let val = savedPrices[id] || '';
+                    let val = savedPrices[id] !== undefined ? savedPrices[id] : (defaultPrices[id] || '');
                     html += `<td style="padding:5px; border:1px solid #ddd;"><input type="text" id="${id}" value="${val}" style="width: 100%; max-width:60px; padding:8px; text-align:center; border:1px solid #ccc; border-radius:4px;" placeholder="금액"></td>`;
                 });
                 html += `</tr>`;
