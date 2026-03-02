@@ -154,11 +154,14 @@
                 } catch (error) {
                     console.error("Password Update Error:", error);
                     if (error.code === 'auth/requires-recent-login') {
-                        alert('보안을 위해 한 번 더 로그인 하신 후 비밀번호를 변경할 수 있습니다.');
+                        alert('서버 보안 원칙에 따라, 비밀번호를 변경하려면 방금 막 로그인한 상태여야 합니다. \n\n지금 자동으로 자동 로그아웃 처리되니, 다시 한 번 로그인 하신 직후에 바로 비밀번호를 변경해 주세요!');
                         await Auth.logout();
                         window.location.href = 'login.html';
+                    } else if (error.code === 'auth/weak-password') {
+                        errorDiv.textContent = '비밀번호가 너무 단순합니다. 문자나 숫자를 조합하여 더 복잡하게 만들어주세요.';
+                        errorDiv.style.display = 'block';
                     } else {
-                        errorDiv.textContent = '비밀번호 변경 중 오류가 발생했습니다. (' + error.code + ')';
+                        errorDiv.textContent = '비밀번호 변경 중 시스템 오류가 발생했습니다. (' + error.code + ')';
                         errorDiv.style.display = 'block';
                     }
                     btn.textContent = '비밀번호 변경하기';
