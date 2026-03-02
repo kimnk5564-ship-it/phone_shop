@@ -3,7 +3,7 @@
 
 const Auth = {
     // Register a new user
-    register: function (username, password, name) {
+    register: async function (username, password, name) {
         if (username === 'cjsdhlcjs97') {
             return { success: false, message: '이 아이디는 사용할 수 없습니다.' };
         }
@@ -16,14 +16,17 @@ const Auth = {
 
         // Firebase Users Stats Increment
         if (typeof db !== 'undefined') {
-            const statsRef = db.collection('stats').doc('users');
-            statsRef.get().then((doc) => {
+            try {
+                const statsRef = db.collection('stats').doc('users');
+                const doc = await statsRef.get();
                 if (doc.exists) {
-                    statsRef.update({ count: firebase.firestore.FieldValue.increment(1) }).catch(err => console.error(err));
+                    await statsRef.update({ count: firebase.firestore.FieldValue.increment(1) });
                 } else {
-                    statsRef.set({ count: 1 }).catch(err => console.error(err));
+                    await statsRef.set({ count: 1 });
                 }
-            }).catch(err => console.log('Error updating stats', err));
+            } catch (err) {
+                console.error('Error updating stats', err);
+            }
         }
 
         return { success: true, message: '회원가입이 완료되었습니다.' };
