@@ -75,6 +75,29 @@
                     <strong>✅ 연결됨:</strong> 데이터베이스(Firebase)가 연동되어 아래 저장된 가격은 방문하는 <b>모든 사용자에게 실시간으로 즉시 반영</b>됩니다.
                 </div>
 
+                <!-- 실시간 방문자 및 가입자 통계 대시보드 -->
+                <div
+                    style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #e9ecef;">
+                    <h2 style="font-size: 1.2rem; color: var(--text-dark); margin-bottom: 15px; text-align: left;">📊 요약
+                        통계 (Analytics)</h2>
+                    <div style="display: flex; gap: 20px; justify-content: space-around;">
+                        <div
+                            style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); flex: 1;">
+                            <h3 style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 10px;">총 가입자 수</h3>
+                            <div id="stat-total-users"
+                                style="font-size: 2rem; font-weight: 900; color: var(--primary-color);">...</div>
+                            <div style="font-size: 0.8rem; color: #888; margin-top: 5px;">명</div>
+                        </div>
+                        <div
+                            style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); flex: 1;">
+                            <h3 style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 10px;">오늘 방문자 수</h3>
+                            <div id="stat-today-visits" style="font-size: 2rem; font-weight: 900; color: #10b981;">...
+                            </div>
+                            <div style="font-size: 0.8rem; color: #888; margin-top: 5px;">명 (당일 고유 세션 기준)</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="admin-prices-container" style="overflow-x: auto; margin-bottom: 20px;">
                     <!-- JS will populate prices editor table here -->
                 </div>
@@ -101,6 +124,27 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
     <script src="firebase-init.js"></script>
     <script>
+        function loadAdminStats() {
+            // Get Total Users
+            db.collection('stats').doc('users').onSnapshot((doc) => {
+                const count = doc.exists ? doc.data().count : 0;
+                document.getElementById('stat-total-users').innerText = count.toLocaleString();
+            }, (error) => {
+                console.error("Error fetching users count:", error);
+                document.getElementById('stat-total-users').innerText = '-';
+            });
+
+            // Get Today's Visits
+            const today = new Date().toISOString().split('T')[0];
+            db.collection('stats').doc('visits').onSnapshot((doc) => {
+                const visits = doc.exists && doc.data()[today] ? doc.data()[today] : 0;
+                document.getElementById('stat-today-visits').innerText = visits.toLocaleString();
+            }, (error) => {
+                console.error("Error fetching visits count:", error);
+                document.getElementById('stat-today-visits').innerText = '-';
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             let user = Auth.getCurrentUser();
             if (!user || !user.isAdmin) {
@@ -109,6 +153,7 @@
                 return;
             }
             loadAdminTable();
+            loadAdminStats();
         });
 
         const models = [

@@ -190,6 +190,33 @@
             evt.currentTarget.className += " active";
         }
     </script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-init.js"></script>
+
+    <script>
+        // Track unique daily visitor (Session based)
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof db !== 'undefined' && !sessionStorage.getItem('visited_today')) {
+                const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                const visitsRef = db.collection('stats').doc('visits');
+
+                visitsRef.get().then((doc) => {
+                    if (doc.exists) {
+                        visitsRef.update({ [today]: firebase.firestore.FieldValue.increment(1) }).catch(console.error);
+                    } else {
+                        visitsRef.set({ [today]: 1 }).catch(console.error);
+                    }
+                }).catch(console.error);
+
+                // Track in current session so we don't count refreshes
+                sessionStorage.setItem('visited_today', 'true');
+            }
+        });
+    </script>
+
     <script src="auth.js"></script>
     <script src="mobile-nav.js"></script>
 </body>
