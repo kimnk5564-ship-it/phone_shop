@@ -76,6 +76,7 @@
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="firebase-init.js"></script>
 
@@ -93,22 +94,21 @@
 
             errorDiv.style.display = 'none';
 
+            if (id.length < 4) {
+                errorDiv.textContent = '아이디는 4자리 이상이어야 합니다.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
             if (pw !== pwConfirm) {
                 errorDiv.textContent = '비밀번호가 일치하지 않습니다.';
                 errorDiv.style.display = 'block';
                 return;
             }
 
-            if (id.length < 4) {
-                errorDiv.textContent = '아이디는 4자 이상이어야 합니다.';
-                errorDiv.style.display = 'block';
-                return;
-            }
-
-            // 제출 버튼 비활성화 (보안 및 중복 방지)
-            const submitBtn = document.querySelector('.login-submit');
-            submitBtn.textContent = '가입 처리 중...';
-            submitBtn.disabled = true;
+            const btn = document.querySelector('.login-submit');
+            btn.textContent = '가입 처리 중...';
+            btn.disabled = true;
 
             const result = await Auth.register(id, pw, name);
 
@@ -118,8 +118,8 @@
             } else {
                 errorDiv.textContent = result.message;
                 errorDiv.style.display = 'block';
-                submitBtn.textContent = '가입하기';
-                submitBtn.disabled = false;
+                btn.textContent = '가입하기';
+                btn.disabled = false;
             }
         });
     </script>

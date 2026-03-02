@@ -60,10 +60,15 @@
         </div>
     </div>
 
+    <!-- Firebase SDK (Compat version for simplicity) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-init.js"></script>
     <!-- Auth Script -->
     <script src="auth.js"></script>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const id = document.getElementById('username').value;
@@ -71,8 +76,11 @@
             const errorDiv = document.getElementById('login-error');
 
             errorDiv.style.display = 'none';
+            const btn = document.querySelector('.login-submit');
+            btn.textContent = '로그인 중...';
+            btn.disabled = true;
 
-            const result = Auth.login(id, pw);
+            const result = await Auth.login(id, pw);
 
             if (result.success) {
                 alert(result.user.name + '님 환영합니다!');
@@ -80,6 +88,8 @@
             } else {
                 errorDiv.textContent = result.message;
                 errorDiv.style.display = 'block';
+                btn.textContent = '로그인';
+                btn.disabled = false;
             }
         });
     </script>
