@@ -72,13 +72,20 @@ const Auth = {
     },
 
     initAutoLogout: function () {
-        const resetTimer = () => this.updateActivityTime();
+        let lastUpdate = 0;
+        const resetTimer = () => {
+            const now = Date.now();
+            if (now - lastUpdate > 5000) { // Throttle updates to max once every 5 seconds
+                this.updateActivityTime();
+                lastUpdate = now;
+            }
+        };
 
         // Track activities
-        window.addEventListener('mousemove', resetTimer);
-        window.addEventListener('keydown', resetTimer);
-        window.addEventListener('click', resetTimer);
-        window.addEventListener('scroll', resetTimer);
+        window.addEventListener('mousemove', resetTimer, { passive: true });
+        window.addEventListener('keydown', resetTimer, { passive: true });
+        window.addEventListener('click', resetTimer, { passive: true });
+        window.addEventListener('scroll', resetTimer, { passive: true });
 
         // Check inactivity every 1 minute
         setInterval(() => {
