@@ -1000,11 +1000,12 @@ body {
 
     /* Responsive Tables - Fixed Width on Mobile */
     .table-container {
-        border-radius: 10px;
-        margin-bottom: 30px;
-        padding-bottom: 10px;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: auto;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        padding-bottom: 5px;
+        overflow-x: hidden !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .price-table {
@@ -1015,30 +1016,31 @@ body {
 
     .price-table th,
     .price-table td {
-        padding: 0.4rem 0.1rem;
-        font-size: 0.75rem;
-        letter-spacing: -0.5px;
-        line-height: 1.2;
-        word-break: break-all;
+        padding: 0.3rem 0;
+        font-size: 0.65rem;
+        letter-spacing: -0.8px;
+        line-height: 1.1;
+        word-break: keep-all;
+        text-align: center;
     }
 
     .price-table th {
-        font-size: 0.65rem;
-        padding: 0.3rem 0.1rem;
+        font-size: 0.55rem;
+        padding: 0.2rem 0;
     }
 
     .model-name-cell {
-        font-size: 0.8rem !important;
-        letter-spacing: -0.8px;
+        font-size: 0.7rem !important;
+        letter-spacing: -1px;
     }
 
     .capacity-cell {
-        font-size: 0.7rem !important;
+        font-size: 0.6rem !important;
     }
 
     .highlight-price,
     .highlight-error {
-        font-size: 0.85rem !important;
+        font-size: 0.7rem !important;
     }
 
     /* Tabs adjustments for mobile */
