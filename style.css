@@ -1218,13 +1218,14 @@ body {
     }
 
     .card-badge {
-        top: -6px !important;
-        right: -10px !important;
-        padding: 0.15rem 1rem !important;
-        font-size: 0.45rem !important;
-        letter-spacing: -0.8px !important;
+        top: 0 !important;
+        right: 0 !important;
+        padding: 0.2rem 0.5rem !important;
+        font-size: 0.5rem !important;
+        letter-spacing: -0.5px !important;
         white-space: nowrap !important;
-        transform: rotate(15deg) !important;
+        transform: none !important;
+        border-radius: 0 12px 0 8px !important;
     }
 
     .price-origin {
