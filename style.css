@@ -1201,35 +1201,42 @@ body {
     }
 
     .card {
-        padding: 1rem 0.5rem !important;
+        padding: 1rem 0.3rem !important;
         border-radius: 12px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        height: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .card h3 {
-        font-size: 0.85rem !important;
+        font-size: 0.75rem !important;
         margin-top: 0.5rem !important;
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 0.2rem !important;
+        word-break: keep-all;
     }
 
     .card-badge {
-        top: 10px !important;
+        top: 5px !important;
         right: -25px !important;
         padding: 0.2rem 2rem !important;
-        font-size: 0.6rem !important;
+        font-size: 0.55rem !important;
     }
 
     .price-origin {
-        font-size: 0.65rem !important;
-        margin-bottom: 0.2rem !important;
+        font-size: 0.6rem !important;
+        margin-bottom: 0.1rem !important;
     }
 
     .price-sale {
-        font-size: 0.75rem !important;
+        font-size: 0.65rem !important;
+        margin-bottom: 0 !important;
     }
 
     .price-sale span {
-        font-size: 1rem !important;
-        margin-left: 0.2rem !important;
+        font-size: 0.85rem !important;
+        margin-left: 0.1rem !important;
     }
 
     /* Review Grid Horizontal Scroll */
