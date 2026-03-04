@@ -1219,9 +1219,11 @@ body {
 
     .card-badge {
         top: 5px !important;
-        right: -25px !important;
-        padding: 0.2rem 2rem !important;
-        font-size: 0.55rem !important;
+        right: -20px !important;
+        padding: 0.2rem 1.5rem !important;
+        font-size: 0.5rem !important;
+        letter-spacing: -0.5px !important;
+        white-space: nowrap !important;
     }
 
     .price-origin {
