@@ -1194,6 +1194,44 @@ body {
         margin-bottom: 1rem;
     }
 
+    /* Cards Grid (Special Deals) - 3 Columns on Mobile */
+    .cards-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.5rem !important;
+    }
+
+    .card {
+        padding: 1rem 0.5rem !important;
+        border-radius: 12px !important;
+    }
+
+    .card h3 {
+        font-size: 0.85rem !important;
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .card-badge {
+        top: 10px !important;
+        right: -25px !important;
+        padding: 0.2rem 2rem !important;
+        font-size: 0.6rem !important;
+    }
+
+    .price-origin {
+        font-size: 0.65rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+
+    .price-sale {
+        font-size: 0.75rem !important;
+    }
+
+    .price-sale span {
+        font-size: 1rem !important;
+        margin-left: 0.2rem !important;
+    }
+
     /* Review Grid Horizontal Scroll */
     .review-grid {
         display: flex;

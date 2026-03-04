@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=5">
     <style>
         .page-header-spacing {
             padding-top: 80px;
@@ -41,6 +41,34 @@
         .benefit-list li::before {
             content: '🎁';
             font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .benefit-list {
+                margin-top: 0.5rem;
+                margin-bottom: 0.5rem;
+                padding: 0.4rem;
+                border-radius: 8px;
+            }
+
+            .benefit-list li {
+                margin-bottom: 0.3rem;
+                font-size: 0.65rem;
+                gap: 0.2rem;
+                letter-spacing: -0.5px;
+            }
+
+            .benefit-list li::before {
+                font-size: 0.7rem;
+            }
+
+            .card .cta-button {
+                padding: 0.4rem 0.2rem !important;
+                font-size: 0.75rem !important;
+                width: 100%;
+                box-sizing: border-box;
+                white-space: nowrap;
+            }
         }
     </style>
 </head>
