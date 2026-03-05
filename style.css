@@ -531,6 +531,134 @@ body {
     margin-left: 0.5rem;
 }
 
+/* Features Section */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.feature-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.feature-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    background: var(--bg-light);
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.feature-card h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: #495057;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* Steps Section */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.step-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+}
+
+.step-num {
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(77, 171, 247, 0.15);
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    z-index: -1;
+}
+
+.step-card h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.step-card p {
+    color: #495057;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+@media (min-width: 992px) {
+    .steps-grid::after {
+        content: '';
+        position: absolute;
+        top: 25%;
+        left: 10%;
+        width: 80%;
+        height: 0;
+        border-top: 2px dashed var(--primary-light);
+        z-index: 1;
+        opacity: 0.5;
+    }
+}
+
 /* Review Grid Section */
 .review-grid {
     display: grid;
@@ -695,6 +823,94 @@ body {
     text-align: right;
     font-size: 0.9rem;
     color: #868e96;
+}
+
+/* Promises Grid */
+.promise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.promise-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.promise-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.promise-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.promise-card h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.promise-card p {
+    color: #495057;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* Hot Deals Ext */
+.hot-deal-grid {
+    margin-top: 2rem;
+}
+
+.hot-deal-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hot-deal-img {
+    width: 160px;
+    height: auto;
+    object-fit: contain;
+    margin: 1rem 0;
+    transition: transform 0.3s ease;
+}
+
+.hot-deal-img-placeholder {
+    font-size: 6rem;
+    margin: 1rem 0;
+    line-height: 1;
+}
+
+.hot-deal-card:hover .hot-deal-img {
+    transform: scale(1.08);
+}
+
+.btn-deal {
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-light);
+    color: var(--white);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.btn-deal:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 /* Location Grid Cards */
@@ -1180,6 +1396,47 @@ body {
     .location-card:hover .btn-kakao {
         transform: none;
         box-shadow: none;
+    }
+
+    /* Promises Mobile */
+    .promise-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .promise-card {
+        padding: 1.5rem 1rem !important;
+    }
+
+    .promise-icon {
+        font-size: 2.5rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+
+    .promise-card h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .promise-card p {
+        font-size: 0.9rem !important;
+    }
+
+    /* Hot Deals Mobile */
+    .hot-deal-img {
+        width: 100px !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    .hot-deal-img-placeholder {
+        font-size: 4rem !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    .btn-deal {
+        padding: 0.6rem 1rem !important;
+        font-size: 0.85rem !important;
+        margin-top: 0.8rem !important;
     }
 
     /* Global Mobile Padding Overrides */
