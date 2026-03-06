@@ -277,6 +277,29 @@ body {
     transform: skewX(-15deg);
 }
 
+.title-catchphrase {
+    display: inline-block;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+    background: linear-gradient(90deg, #f8f9fa 0%, #4dabf7 50%, #f8f9fa 100%);
+    background-size: 200% auto;
+    color: #fff;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    animation: shine 3s linear infinite;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
 .hero-subtitle {
     font-size: 1.4rem;
     font-weight: 400;
@@ -386,6 +409,10 @@ body {
         font-size: 4rem;
     }
 
+    .title-catchphrase {
+        font-size: 1.8rem;
+    }
+
     .hero-subtitle {
         font-size: 1.2rem;
     }
@@ -419,6 +446,11 @@ body {
     .hero-title {
         font-size: 1.8rem;
         margin-bottom: 0.3rem;
+    }
+
+    .title-catchphrase {
+        font-size: 1.1rem;
+        margin-bottom: 0.2rem;
     }
 
     .hero-subtitle {
