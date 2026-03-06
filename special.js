@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load live special deals
     function loadLiveSpecials() {
-        db.collection('specials').where('active', '==', true).orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+        db.collection('specials').where('active', '==', true).onSnapshot(snapshot => {
             listContainer.innerHTML = ''; // Clear loading or default static content
 
             if (snapshot.empty) {
@@ -13,8 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // JavaScript sorting to bypass the Firebase Composite Index requirement
+            const deals = [];
             snapshot.forEach(doc => {
                 const data = doc.data();
+                data.id = doc.id;
+                deals.push(data);
+            });
+
+            deals.sort((a, b) => {
+                const dateA = a.createdAt ? a.createdAt.toMillis() : 0;
+                const dateB = b.createdAt ? b.createdAt.toMillis() : 0;
+                return dateB - dateA;
+            });
+
+            deals.forEach(data => {
 
                 // Build benefit list
                 let benefitsHtml = '';

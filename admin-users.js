@@ -46,10 +46,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }[tag] || tag));
     }
 
+    function migrateLocalUsers() {
+        if (localStorage.getItem('users_migrated_to_firestore') === 'true') return;
+
+        try {
+            const localUsersStr = localStorage.getItem('users');
+            if (!localUsersStr) return;
+            const localUsers = JSON.parse(localUsersStr);
+            Object.keys(localUsers).forEach(username => {
+                const u = localUsers[username];
+                db.collection('users').doc('local_' + username).set({
+                    email: username + '@phoneshop.local',
+                    username: username,
+                    name: u.name || username,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true }).catch(console.error);
+            });
+            localStorage.setItem('users_migrated_to_firestore', 'true');
+            console.log('Migrated old local users to Firestore users collection successfully.');
+        } catch (e) {
+            console.error('Error migrating local users', e);
+        }
+    }
+
     // Initialize if admin
     firebase.auth().onAuthStateChanged((user) => {
         const currentUser = Auth.getCurrentUser();
         if (currentUser && currentUser.isAdmin) {
+            migrateLocalUsers();
             loadAllUsers();
         }
     });
