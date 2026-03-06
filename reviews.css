@@ -27,6 +27,20 @@
     font-weight: 800;
 }
 
+/* Layout for Reviews List */
+.review-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Page Spacing to fix floating footer */
+.page-header-spacing {
+    padding-top: 80px;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--white) 100%);
+    min-height: 100vh;
+}
+
 /* Review Cards Enhancements */
 .review-card {
     position: relative;
@@ -152,6 +166,7 @@
 }
 
 .form-group input,
+.form-group select,
 .form-group textarea {
     width: 100%;
     padding: 0.9rem;
@@ -160,9 +175,11 @@
     font-size: 1rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background: #f8f9fa;
+    font-family: inherit;
 }
 
 .form-group input:focus,
+.form-group select:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-light);

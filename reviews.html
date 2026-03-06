@@ -96,8 +96,15 @@
                         <input type="text" id="review-model" placeholder="예: 아이폰 17 Pro" required>
                     </div>
                     <div class="form-group flex-1">
-                        <label for="review-location">방문 지점 (지역)</label>
-                        <input type="text" id="review-location" placeholder="예: 서울 영등포" required>
+                        <label for="review-location">방문 지점</label>
+                        <select id="review-location" required>
+                            <option value="" disabled selected>지점을 선택해주세요</option>
+                            <option value="성남점">성남점</option>
+                            <option value="양천점">양천점</option>
+                            <option value="영등포점">영등포점</option>
+                            <option value="광명점">광명점</option>
+                            <option value="하남점">하남점</option>
+                        </select>
                     </div>
                 </div>
 
