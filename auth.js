@@ -15,10 +15,20 @@ const Auth = {
         try {
             const email = this._getEmailFromUsername(username);
             const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-            const user = userCredential.user;
-
             // Update profile with name
             await user.updateProfile({ displayName: name });
+
+            // Save user profile to Firestore for Admin Dashboard (Feature 4)
+            try {
+                await db.collection('users').doc(user.uid).set({
+                    email: email,
+                    username: username,
+                    name: name,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch (err) {
+                console.error('Error saving user profile to users collection', err);
+            }
 
             // Firebase Users Stats Increment
             try {

@@ -123,15 +123,210 @@
                                 명</div>
                         </div>
 
+                        <!-- 5. 성지 클릭 통계 (Feature 5) -->
+                        <div
+                            style="background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); flex: 2; border-left: 5px solid #f59f00;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="font-size: 1.5rem;">🎯</div>
+                                    <h3 style="color: var(--text-dark); font-size: 1rem; font-weight: bold; margin: 0;">
+                                        지역별 선호도 (클릭 통계)</h3>
+                                </div>
+                            </div>
+                            <div id="admin-location-stats" style="margin-top: 15px;">
+                                <div style="text-align: center; color: #868e96; font-size: 0.9rem;">통계를 집계 중입니다...</div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                <div id="admin-prices-container" class="table-container wide-table" style="margin-bottom: 20px;">
-                    <!-- JS will populate prices editor table here -->
+                <!-- 1. 메인 배너 및 공지사항 관리 (Feature 1) -->
+                <div
+                    style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #e9ecef; text-align: left;">
+                    <h2
+                        style="font-size: 1.3rem; color: var(--primary-dark); margin-bottom: 15px; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;">
+                        📣 메인 문구 및 공지사항 관리</h2>
+                    <form id="admin-banner-form">
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px;">상단 뱃지 텍스트 (예: 선착순 100명
+                                한정)</label>
+                            <input type="text" id="banner_badge" placeholder="뱃지에 들어갈 문구를 적어주세요"
+                                style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px;">메인 큰 제목 (예: 아이폰 17
+                                성지)</label>
+                            <input type="text" id="banner_title" placeholder="가장 크게 보일 제목을 적어주세요" required
+                                style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px;">중간 강조 문구 (예: 전국 최저가
+                                보장)</label>
+                            <input type="text" id="banner_catchphrase" placeholder="제목 아래에 들어갈 강조 문구를 적어주세요"
+                                style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px;">부제목 (상세 설명 문구)</label>
+                            <textarea id="banner_subtitle" rows="3" placeholder="메인 화면에 들어갈 기타 설명을 적어주세요"
+                                style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-family: inherit; resize: vertical;"></textarea>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label
+                                style="display: flex; align-items: center; font-weight: bold; gap: 10px; cursor: pointer;">
+                                <input type="checkbox" id="notice_active"
+                                    style="width: 18px; height: 18px; cursor: pointer;"> 사이트 상단에 긴급 팝업 공지사항 띄우기
+                            </label>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px;">긴급 팝업 공지 내용</label>
+                            <input type="text" id="notice_text" placeholder="긴급 휴무, 재고 소진 등의 공지사항을 적어주세요"
+                                style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+                        </div>
+                        <button type="submit" id="save-banner-btn" class="btn-primary"
+                            style="padding: 10px 20px; font-size: 1rem; cursor:pointer; width: 100%; background: #4dabf7; border: none; border-radius: 8px; font-weight: bold;">📝
+                            메인 배너 및 공지사항 적용하기</button>
+                    </form>
                 </div>
 
-                <button onclick="savePrices()" class="btn-primary"
-                    style="padding: 15px 30px; font-size: 1.2rem; cursor:pointer;">💾 실시간 가격 저장하기</button>
+                <!-- 2. 특가 상품 관리 (Feature 2) -->
+                <div
+                    style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #e9ecef; text-align: left;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;">
+                        <h2 style="font-size: 1.3rem; color: var(--primary-dark); margin: 0;">🎁 오늘의 특가 상품 관리</h2>
+                        <button onclick="document.getElementById('add-special-modal').style.display='flex'"
+                            style="background: var(--primary-color); color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">+
+                            새 상품 추가</button>
+                    </div>
+
+                    <div id="admin-specials-list" style="display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Special deals will be populated here by admin-specials.js -->
+                        <div style="text-align: center; color: #868e96; padding: 20px;">상품을 로딩 중입니다...</div>
+                    </div>
+                </div>
+
+                <!-- 특가 상품 추가 모달 (숨김 처리) -->
+                <div id="add-special-modal"
+                    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
+                    <div style="background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 500px;">
+                        <h3 style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">새 특가 상품
+                            추가</h3>
+                        <form id="add-special-form">
+                            <div style="margin-bottom: 10px;">
+                                <label style="display: block; font-size: 0.9rem; margin-bottom: 5px;">상단 뱃지 (예:
+                                    파격할인)</label>
+                                <input type="text" id="special_badge" required
+                                    style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <label style="display: block; font-size: 0.9rem; margin-bottom: 5px;">기종명 (예: Galaxy
+                                    S26)</label>
+                                <input type="text" id="special_name" required
+                                    style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <label style="display: block; font-size: 0.9rem; margin-bottom: 5px;">기존 출고가 (예: 출고가
+                                    1,155,000원)</label>
+                                <input type="text" id="special_origin" required
+                                    style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <label style="display: block; font-size: 0.9rem; margin-bottom: 5px;">행사가 (예: 상담문의,
+                                    15만원)</label>
+                                <input type="text" id="special_sale" required
+                                    style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; font-size: 0.9rem; margin-bottom: 5px;">혜택 목록 (엔터로 구분,
+                                    3~4줄 권장)</label>
+                                <textarea id="special_benefits" rows="4" required
+                                    style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;"></textarea>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button type="button"
+                                    onclick="document.getElementById('add-special-modal').style.display='none'"
+                                    style="flex: 1; padding: 10px; background: #eee; border: none; border-radius: 5px; cursor: pointer;">취소</button>
+                                <button type="submit"
+                                    style="flex: 1; padding: 10px; background: var(--primary-color); color: white; border: none; border-radius: 5px; cursor: pointer;">추가하기</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 3. 시세표 관리 (기존) -->
+                <div
+                    style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #e9ecef; text-align: left;">
+                    <h2
+                        style="font-size: 1.3rem; color: var(--primary-dark); margin-bottom: 15px; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;">
+                        💰 시세표 실시간 수정</h2>
+                    <div id="admin-prices-container" class="table-container wide-table"
+                        style="margin-bottom: 20px; overflow-x: auto;">
+                        <!-- JS will populate prices editor table here -->
+                    </div>
+                    <button onclick="savePrices()" class="btn-primary"
+                        style="padding: 15px 30px; font-size: 1.2rem; cursor:pointer; width: 100%; border: none; border-radius: 8px; font-weight: bold;">💾
+                        실시간 시세표 가격 저장하기</button>
+                </div>
+
+                <!-- 4. 전체 구매 후기 통합 관리 (Feature 3) -->
+                <div
+                    style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #e9ecef; text-align: left;">
+                    <h2
+                        style="font-size: 1.3rem; color: var(--primary-dark); margin-bottom: 15px; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;">
+                        💬 전체 구매 후기 통합 관리</h2>
+                    <div style="overflow-x: auto;">
+                        <table
+                            style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                            <thead>
+                                <tr style="background: #e9ecef; color: var(--text-dark); text-align: left;">
+                                    <th style="padding: 12px 15px; border-bottom: 2px solid #dee2e6;">작성일</th>
+                                    <th style="padding: 12px 15px; border-bottom: 2px solid #dee2e6;">작성자</th>
+                                    <th style="padding: 12px 15px; border-bottom: 2px solid #dee2e6;">기종/지점</th>
+                                    <th style="padding: 12px 15px; border-bottom: 2px solid #dee2e6; width: 40%;">내용
+                                    </th>
+                                    <th
+                                        style="padding: 12px 15px; border-bottom: 2px solid #dee2e6; text-align: center;">
+                                        관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-reviews-table-body">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 20px; color: #868e96;">후기를 불러오는
+                                        중입니다...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 5. 가입 회원 관리 리스트 (Feature 4) -->
+                <div
+                    style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #e9ecef; text-align: left;">
+                    <h2
+                        style="font-size: 1.3rem; color: var(--primary-dark); margin-bottom: 15px; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;">
+                        👥 가입 회원 관리 리스트</h2>
+                    <div style="overflow-x: auto;">
+                        <table
+                            style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                            <thead>
+                                <tr style="background: #e9ecef; color: var(--text-dark); text-align: left;">
+                                    <th style="padding: 12px 15px; border-bottom: 2px solid #dee2e6;">가입일시</th>
+                                    <th style="padding: 12px 15px; border-bottom: 2px solid #dee2e6;">이름(닉네임)</th>
+                                    <th style="padding: 12px 15px; border-bottom: 2px solid #dee2e6;">아이디</th>
+                                    <th style="padding: 12px 15px; border-bottom: 2px solid #dee2e6;">고유 UID</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-users-table-body">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 20px; color: #868e96;">회원 목록을
+                                        불러오는 중입니다...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -322,6 +517,11 @@
             });
         </script>
         <script src="mobile-nav.js"></script>
+        <script src="admin-banner.js"></script>
+        <script src="admin-specials.js"></script>
+        <script src="admin-reviews.js"></script>
+        <script src="admin-users.js"></script>
+        <script src="admin-stats.js"></script>
 </body>
 
 </html>

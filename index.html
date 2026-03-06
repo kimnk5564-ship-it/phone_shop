@@ -40,6 +40,14 @@
     </header>
 
     <main>
+        <!-- Notice Bar (Hidden by default) -->
+        <div id="site-notice-bar"
+            style="display: none; background: #ff6b6b; color: white; padding: 12px 20px; text-align: center; font-weight: bold; position: relative; z-index: 100;">
+            <span id="site-notice-text"></span>
+            <button onclick="document.getElementById('site-notice-bar').style.display='none'"
+                style="position: absolute; right: 15px; top: 12px; background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer;">&times;</button>
+        </div>
+
         <section class="hero-banner">
             <!-- Animated Background Glows -->
             <div class="bg-element elem-1"></div>
@@ -48,12 +56,12 @@
             <div class="elem-4"></div>
 
             <div class="hero-content">
-                <div class="badge">🔥 단독 초특가 이벤트</div>
-                <h1 class="hero-title">
-                    <span class="title-catchphrase">가장 저렴하게, 가장 확실하게!</span><br>
+                <div class="badge" id="hero-badge">🔥 단독 초특가 이벤트</div>
+                <h1 class="hero-title" id="hero-title">
+                    <span class="title-catchphrase" id="hero-catchphrase">가장 저렴하게, 가장 확실하게!</span><br>
                     핸드폰 성지 <span class="highlight">행사폰</span>
                 </h1>
-                <p class="hero-subtitle">전국 최고 수준의 혜택을 만나보세요.<br>매일 업데이트되는 투명한 단가로 믿을 수 있습니다.</p>
+                <p class="hero-subtitle" id="hero-subtitle">전국 최고 수준의 혜택을 만나보세요.<br>매일 업데이트되는 투명한 단가로 믿을 수 있습니다.</p>
                 <div class="hero-phones">
                     <img src="assets/galaxy_s26.png" alt="Galaxy S26" class="phone-img">
                     <img src="assets/iphone_17_pro.png" alt="iPhone 17 Pro" class="phone-img">
@@ -179,31 +187,32 @@
                         <div class="location-icon">🏢</div>
                         <h3>경기도 양천</h3>
                         <p class="location-sub">빠르고 친절한 상담</p>
-                        <a href="#" class="btn-kakao">💬 카카오톡 문의하기</a>
+                        <a href="#" onclick="trackLocationClick('양천점')" class="btn-kakao">💬 카카오톡 문의하기</a>
                     </div>
                     <div class="location-card">
                         <div class="location-icon">🏙️</div>
                         <h3>서울시 영등포</h3>
                         <p class="location-sub">최고의 혜택 보장</p>
-                        <a href="#" class="btn-kakao">💬 카카오톡 문의하기</a>
+                        <a href="#" onclick="trackLocationClick('영등포점')" class="btn-kakao">💬 카카오톡 문의하기</a>
                     </div>
                     <div class="location-card">
                         <div class="location-icon">🏪</div>
                         <h3>경기도 광명</h3>
                         <p class="location-sub">당일 개통 전문</p>
-                        <a href="#" class="btn-kakao">💬 카카오톡 문의하기</a>
+                        <a href="#" onclick="trackLocationClick('광명점')" class="btn-kakao">💬 카카오톡 문의하기</a>
                     </div>
                     <div class="location-card">
                         <div class="location-icon">🏠</div>
                         <h3>경기도 하남</h3>
                         <p class="location-sub">투명한 가격 정책</p>
-                        <a href="#" class="btn-kakao">💬 카카오톡 문의하기</a>
+                        <a href="#" onclick="trackLocationClick('하남점')" class="btn-kakao">💬 카카오톡 문의하기</a>
                     </div>
                     <div class="location-card">
                         <div class="location-icon">🏬</div>
                         <h3>경기도 성남</h3>
                         <p class="location-sub">프리미엄 컨설팅</p>
-                        <a href="https://open.kakao.com/o/sBvOpquh" target="_blank" class="btn-kakao">💬 카카오톡 문의하기</a>
+                        <a href="https://open.kakao.com/o/sBvOpquh" target="_blank" onclick="trackLocationClick('성남점')"
+                            class="btn-kakao">💬 카카오톡 문의하기</a>
                     </div>
                 </div>
             </div>
@@ -280,10 +289,22 @@
                 sessionStorage.setItem('visited_today', 'true');
             }
         });
+
+        // Track location clicks
+        window.trackLocationClick = function (locationName) {
+            try {
+                if (typeof db !== 'undefined') {
+                    db.collection('stats').doc('location_clicks').set({
+                        [locationName]: firebase.firestore.FieldValue.increment(1)
+                    }, { merge: true }).catch(console.error);
+                }
+            } catch (e) { console.error('Error tracking click:', e); }
+        };
     </script>
 
     <script src="auth.js"></script>
     <script src="mobile-nav.js"></script>
+    <script src="main-banner.js"></script>
 </body>
 
 </html>
