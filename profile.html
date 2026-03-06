@@ -64,6 +64,17 @@
             </div>
         </div>
 
+        <h3 class="password-section-title">닉네임 변경</h3>
+        <form id="nameForm">
+            <div class="input-group">
+                <label for="new-name">새 닉네임</label>
+                <input type="text" id="new-name" placeholder="새로운 닉네임을 입력하세요" required minlength="2">
+            </div>
+            <div id="name-error"
+                style="color: red; margin-bottom: 15px; text-align: center; font-size: 0.9rem; display: none;"></div>
+            <button type="submit" class="btn-primary w-100 name-submit" style="margin-bottom: 2rem;">닉네임 변경하기</button>
+        </form>
+
         <h3 class="password-section-title">비밀번호 변경</h3>
         <form id="passwordForm">
             <div class="input-group">
@@ -113,6 +124,45 @@
                         roleBadge.textContent = '일반 회원';
                         roleBadge.classList.remove('admin');
                     }
+                }
+            });
+
+            // Handle Name Change
+            document.getElementById('nameForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const newName = document.getElementById('new-name').value.trim();
+                const errorDiv = document.getElementById('name-error');
+                const btn = document.querySelector('.name-submit');
+
+                errorDiv.style.display = 'none';
+
+                if (newName.length < 2) {
+                    errorDiv.textContent = '닉네임은 2글자 이상 입력해주세요.';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+
+                btn.textContent = '변경 중...';
+                btn.disabled = true;
+
+                try {
+                    const user = firebase.auth().currentUser;
+                    if (user) {
+                        await user.updateProfile({ displayName: newName });
+                        alert('닉네임이 성공적으로 변경되었습니다!');
+                        document.getElementById('profile-name').textContent = newName;
+                        document.getElementById('nameForm').reset();
+                    } else {
+                        throw new Error('로그인 세션 만료');
+                    }
+                } catch (error) {
+                    console.error("Name Update Error:", error);
+                    errorDiv.textContent = '닉네임 변경 중 시스템 오류가 발생했습니다.';
+                    errorDiv.style.display = 'block';
+                } finally {
+                    btn.textContent = '닉네임 변경하기';
+                    btn.disabled = false;
                 }
             });
 
