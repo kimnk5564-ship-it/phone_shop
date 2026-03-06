@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!tableBody) return;
 
     function loadAllUsers() {
-        db.collection('users').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
+        db.collection('users').onSnapshot(snapshot => {
             tableBody.innerHTML = '';
 
             if (snapshot.empty) {
@@ -12,12 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            const users = [];
             snapshot.forEach(doc => {
                 const data = doc.data();
+                data.id = doc.id;
+                users.push(data);
+            });
 
+            // Sort by createdAt descending in JS
+            users.sort((a, b) => {
+                const dateA = a.createdAt ? a.createdAt.toMillis() : 0;
+                const dateB = b.createdAt ? b.createdAt.toMillis() : 0;
+                return dateB - dateA;
+            });
+
+            users.forEach(data => {
                 // Format Date
                 let dateStr = '날짜 없음';
-                if (data.createdAt) {
+                if (data.createdAt && typeof data.createdAt.toDate === 'function') {
                     const d = data.createdAt.toDate();
                     dateStr = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
                 }
@@ -29,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td style="padding: 12px 15px; color: #666; font-size: 0.9rem;">${dateStr}</td>
                     <td style="padding: 12px 15px; font-weight: bold; color: var(--primary-dark);">${escapeHTML(data.name || '이름 없음')}</td>
                     <td style="padding: 12px 15px; color: var(--text-dark);">${escapeHTML(data.username || '아이디 없음')}</td>
-                    <td style="padding: 12px 15px; color: #888; font-size: 0.9rem;">${doc.id}</td>
+                    <td style="padding: 12px 15px; color: #888; font-size: 0.9rem;">${data.id}</td>
                 `;
                 tableBody.appendChild(tr);
             });
