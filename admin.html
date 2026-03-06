@@ -575,6 +575,29 @@
                 });
             });
         </script>
+        <script>
+            function openAdminTab(evt, tabId) {
+                // Hide all tab content
+                var tabContents = document.getElementsByClassName("admin-tab-content");
+                for (var i = 0; i < tabContents.length; i++) {
+                    tabContents[i].style.display = "none";
+                }
+
+                // Remove active style from all buttons
+                var tabBtns = document.getElementsByClassName("admin-tab-btn");
+                for (var i = 0; i < tabBtns.length; i++) {
+                    tabBtns[i].style.background = "#e9ecef";
+                    tabBtns[i].style.color = "var(--text-dark)";
+                    tabBtns[i].className = tabBtns[i].className.replace(" active", "");
+                }
+
+                // Show current tab and set active style
+                document.getElementById(tabId).style.display = "block";
+                evt.currentTarget.style.background = "var(--primary-color)";
+                evt.currentTarget.style.color = "white";
+                evt.currentTarget.className += " active";
+            }
+        </script>
         <script src="mobile-nav.js"></script>
         <script src="admin-banner.js"></script>
         <script src="admin-specials.js"></script>
