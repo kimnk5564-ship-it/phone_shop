@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>행사폰 - 고객 후기</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="reviews.css?v=1">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">📱</span>
+                <span class="logo-text">행사폰</span>
+            </a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="nav-links">
+                <a href="special.html">오늘의 특가</a>
+                <a href="prices.html">시세표</a>
+                <a href="reviews.html" style="color: var(--primary-color);">구매 후기</a>
+                <a href="index.html#location">성지찾기</a>
+                <a href="index.html#support">고객센터</a>
+                <a href="admin.html" class="admin-btn" style="display: none;">관리자 페이지</a>
+                <a href="profile.html" class="profile-btn" style="display: none;">내정보</a>
+                <a href="login.html" class="login-btn">로그인/회원가입</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-header-spacing">
+        <section id="reviews-page" class="section">
+            <div class="container section-inner">
+                <div class="reviews-header flex-center-between">
+                    <div>
+                        <h2 class="section-title" style="text-align: left; margin-bottom: 0.5rem;">생생한 <span>구매
+                                후기</span></h2>
+                        <p class="section-desc" style="text-align: left; margin-bottom: 0;">행사폰에서 개통하신 고객님들의 실제 후기를
+                            확인하세요.</p>
+                    </div>
+                    <button id="write-review-btn" class="cta-button"
+                        style="padding: 0.8rem 1.5rem; font-size: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        ✏️ 후기 작성하기
+                    </button>
+                </div>
+
+                <!-- Review Filter / Sort (Optional) -->
+                <div class="reviews-controls">
+                    <span class="reviews-count">총 <b id="total-reviews-count">0</b>개의 소중한 후기가 있습니다.</span>
+                </div>
+
+                <div id="reviews-container" class="grid review-grid" style="margin-top: 2rem;">
+                    <!-- Loading State -->
+                    <div class="loading-spinner text-center" style="grid-column: 1 / -1; padding: 3rem;">
+                        <p>후기를 불러오는 중입니다...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Write Review Modal -->
+    <div id="review-modal" class="modal-overlay">
+        <div class="modal-content review-modal-content">
+            <button class="modal-close" id="close-review-modal">×</button>
+            <h3 class="modal-title">구매 후기 작성</h3>
+            <p class="modal-subtitle">행사폰 이용 후기를 남겨주세요!</p>
+
+            <form id="review-form">
+                <div class="form-group">
+                    <label>평점</label>
+                    <div class="star-rating" id="star-rating">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" id="review-rating" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label for="review-model">구매 기종</label>
+                        <input type="text" id="review-model" placeholder="예: 아이폰 17 Pro" required>
+                    </div>
+                    <div class="form-group flex-1">
+                        <label for="review-location">방문 지점 (지역)</label>
+                        <input type="text" id="review-location" placeholder="예: 서울 영등포" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="review-content">상세 후기</label>
+                    <textarea id="review-content" rows="5" placeholder="솔직한 구매 경험을 남겨주시면 다른 고객님들께 큰 도움이 됩니다."
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-review-btn">
+                    <span>등록하기</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-info">
+                <h3 class="footer-logo">행사폰</h3>
+                <p>상호: (주)행사폰 | 대표: 홍길동 | 사업자등록번호: 123-45-67890</p>
+                <p>통신판매업신고: 제2026-서울강남-0001호 | 소재지: 서울특별시 강남구 테헤란로 123</p>
+                <p class="copyright">© 2026 행사폰. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK (Compat version for simplicity) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-init.js"></script>
+
+    <!-- External Logic Scripts -->
+    <script src="auth.js"></script>
+    <script src="mobile-nav.js"></script>
+    <script src="reviews.js"></script>
+</body>
+
+</html>
