@@ -16,8 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check Auth State
     firebase.auth().onAuthStateChanged((user) => {
         currentUser = user;
-        // Check admin state from local storage defined in auth flow
-        isAdmin = localStorage.getItem('isAdmin') === 'true';
+        // Check admin state from Auth module
+        const authUser = Auth.getCurrentUser();
+        isAdmin = authUser ? authUser.isAdmin : false;
         loadReviews();
     });
 
