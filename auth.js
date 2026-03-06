@@ -59,7 +59,24 @@ const Auth = {
     login: async function (username, password) {
         try {
             const email = this._getEmailFromUsername(username);
-            await firebase.auth().signInWithEmailAndPassword(email, password);
+            const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+
+            // Feature 4: Sync user to Firestore on login (for users registered before this feature)
+            try {
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (!userDoc.exists) {
+                    await db.collection('users').doc(user.uid).set({
+                        email: email,
+                        username: username,
+                        name: user.displayName || (username === 'cjsdhlcjs97' ? '행사폰 어드민' : '회원'),
+                        createdAt: user.metadata.creationTime ? new Date(user.metadata.creationTime) : firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }
+            } catch (err) {
+                console.error('Error syncing user profile on login', err);
+            }
+
             this.updateActivityTime();
 
             return { success: true, user: this.getCurrentUser() };
