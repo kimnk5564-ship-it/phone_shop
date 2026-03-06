@@ -12,16 +12,119 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=10">
     <style>
-        /* 페이지 상단 여백 보정 */
+        /* 페이지 상단 여백 보정 & 배경 테마 */
         .page-header-spacing {
             padding-top: 80px;
-            background: linear-gradient(135deg, var(--bg-light) 0%, var(--white) 100%);
+            background: linear-gradient(135deg, #f1f3f5 0%, #e2eafc 100%);
             min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 은은한 배경 장식 요소 */
+        .price-bg-elem {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        .price-bg-1 {
+            width: 400px;
+            height: 400px;
+            background: #d0ebff;
+            top: 5%;
+            left: -50px;
+        }
+
+        .price-bg-2 {
+            width: 500px;
+            height: 500px;
+            background: #dbe4ff;
+            bottom: -50px;
+            right: -100px;
+            animation-delay: -5s;
         }
 
         /* 불필요한 상단 빈 공간 대폭 축소 */
         #prices.section {
             padding-top: 2rem !important;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 시세표 보는 법 가이드 박스 */
+        .guide-box {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .guide-item {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+            text-align: left;
+            flex: 1;
+            min-width: 250px;
+            max-width: 320px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .guide-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .guide-icon {
+            font-size: 2rem;
+            background: var(--bg-light);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .guide-text strong {
+            display: block;
+            font-size: 1.05rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .guide-text p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #495057;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .guide-box {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .guide-item {
+                max-width: 100%;
+                width: 100%;
+            }
         }
 
         .tabs-wrapper {
@@ -165,10 +268,37 @@
     </header>
 
     <main class="page-header-spacing">
+        <div class="price-bg-elem price-bg-1"></div>
+        <div class="price-bg-elem price-bg-2"></div>
         <section id="prices" class="section">
             <div class="container section-inner wide-container text-center">
                 <h2 class="section-title">투명한 <span>시세표</span></h2>
                 <p class="section-desc">매일 업데이트되는 전국 최저가 단가표입니다. 지역 카테고리를 선택해 주세요.</p>
+
+                <!-- 시세표 보는 법 안내 가이드 -->
+                <div class="guide-box">
+                    <div class="guide-item">
+                        <span class="guide-icon">💡</span>
+                        <div class="guide-text">
+                            <strong>요금제 기준</strong>
+                            <p>SKT(109) / KT(110) / LG(115)<br>해당 숫자는 요금제 월정액을 의미합니다.</p>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-icon">🔄</span>
+                        <div class="guide-text">
+                            <strong>가입유형</strong>
+                            <p><strong>이동:</strong> 통신사 변경 (번호이동)<br><strong>기변:</strong> 통신사 유지 (기기변경)</p>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-icon">💰</span>
+                        <div class="guide-text">
+                            <strong>단가 안내</strong>
+                            <p>표기된 숫자는 <strong>만 원</strong> 단위이며,<br>마이너스(-)는 차비 지급을 의미합니다.</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="tabs-wrapper">
                     <div class="tabs-container">
