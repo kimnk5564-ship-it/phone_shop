@@ -40,13 +40,20 @@ body {
 
 .container {
     max-width: 1200px;
+    /* Increased for better visual spacing */
     margin: 0 auto;
-    padding: 1.2rem 2rem;
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.section-spacing {
+    padding: 8rem 0;
+    /* Increased from tighter padding to Naver-like spacing */
+}
+
+/* Typography Enhancements */
 .logo {
     display: flex;
     align-items: center;
@@ -154,15 +161,23 @@ body {
 
 /* Hero Banner */
 .hero-banner {
-    min-height: 100vh;
+    min-height: 90vh;
+    /* Reduced from 100vh so it doesn't look too massive */
     padding: 10rem 2rem 4rem;
-    /* Increased to avoid overlap with ticker */
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .hero-banner {
+        min-height: 60vh;
+        /* Make banner much more compact on mobile */
+        padding: 8rem 1.5rem 3rem;
+    }
 }
 
 /* Animated Background Elements */
@@ -234,19 +249,18 @@ body {
 }
 
 .badge {
-    display: inline-block;
-    padding: 0.6rem 1.5rem;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 0.5rem 1.2rem;
     border-radius: 50px;
     font-size: 0.95rem;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    display: inline-block;
     margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    animation: fadeInDown 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-title {
@@ -537,8 +551,9 @@ body {
 /* Cards Grid (Special Deals) */
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    /* Increased gap */
 }
 
 .card {
@@ -2203,6 +2218,7 @@ body {
 [data-theme="dark"] .reviewer-info h4,
 [data-theme="dark"] .location-card h3,
 [data-theme="dark"] .stat-title,
+[data-theme="dark"] .stat-item-title,
 [data-theme="dark"] .benefit-list li strong {
     color: var(--text-dark);
 }
@@ -2212,13 +2228,22 @@ body {
     background: var(--bg-light) !important;
 }
 
-[data-theme="dark"] .card-badge {
+[data-theme="dark"] .card-badge,
+[data-theme="dark"] .badge {
     color: #ffffff !important;
 }
 
 [data-theme="dark"] .review-model,
-[data-theme="dark"] .review-location {
+[data-theme="dark"] .review-location,
+[data-theme="dark"] .review-date,
+[data-theme="dark"] .user-date,
+[data-theme="dark"] .user-uid,
+[data-theme="dark"] .stat-desc {
     color: #ced4da !important;
+}
+
+[data-theme="dark"] .user-name {
+    color: var(--primary-light) !important;
 }
 
 [data-theme="dark"] .admin-tab-btn {
@@ -2229,6 +2254,21 @@ body {
 [data-theme="dark"] .admin-tab-btn.active {
     background: var(--primary-color) !important;
     color: #ffffff !important;
+}
+
+[data-theme="dark"] .dashboard-stat-box {
+    background: var(--card-bg) !important;
+    color: var(--text-dark) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Global Dark Mode Input Focus Fix */
+[data-theme="dark"] input:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus {
+    background: #ffffff !important;
+    color: #212529 !important;
+    border-color: var(--primary-light) !important;
 }
 
 /* Mobile navigation link color fix in dark drawer */

@@ -49,13 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const tr = document.createElement('tr');
-                tr.style.borderBottom = '1px solid #eee';
+                tr.className = 'admin-user-row';
 
                 tr.innerHTML = `
-                    <td style="padding: 12px 15px; color: #666; font-size: 0.9rem;">${dateStr}</td>
-                    <td style="padding: 12px 15px; font-weight: bold; color: var(--primary-dark);">${escapeHTML(data.name || '이름 없음')}</td>
-                    <td style="padding: 12px 15px; color: var(--text-dark);">${escapeHTML(data.username || '아이디 없음')}</td>
-                    <td style="padding: 12px 15px; color: #888; font-size: 0.9rem;">${data.id}</td>
+                    <td class="user-date">${dateStr}</td>
+                    <td class="user-name">${escapeHTML(data.name || '이름 없음')}</td>
+                    <td class="user-id">${escapeHTML(data.username || '아이디 없음')}</td>
+                    <td class="user-uid">${data.id}</td>
                 `;
                 tableBody.appendChild(tr);
             });

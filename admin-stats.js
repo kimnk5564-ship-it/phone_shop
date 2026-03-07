@@ -22,20 +22,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let maxClicks = sortedLocations[0][1]; // Highest click count for progress bar scaling
 
-            let html = '<div style="display: flex; flex-direction: column; gap: 15px;">';
+            let html = '<div class="stats-list">';
 
             sortedLocations.forEach(([location, clicks], index) => {
                 let percentage = Math.max(5, (clicks / maxClicks) * 100);
                 let rankTrophy = index === 0 ? '🏆' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : ''));
 
                 html += `
-                    <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #eee; display: flex; flex-direction: column; gap: 8px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; font-weight: bold;">
-                            <span style="color: var(--primary-dark);">${rankTrophy} ${escapeHTML(location)}</span>
-                            <span style="color: var(--primary-color); font-size: 1.1rem;">${clicks}회 클릭</span>
+                    <div class="stat-item">
+                        <div class="stat-item-header">
+                            <span class="stat-item-title">${rankTrophy} ${escapeHTML(location)}</span>
+                            <span class="stat-item-value">${clicks}회 클릭</span>
                         </div>
-                        <div style="width: 100%; height: 10px; background: #e9ecef; border-radius: 5px; overflow: hidden;">
-                            <div style="height: 100%; width: ${percentage}%; background: ${index === 0 ? '#ff6b6b' : 'var(--primary-color)'}; border-radius: 5px; transition: width 1s ease-in-out;"></div>
+                        <div class="stat-progress-bg">
+                            <div class="stat-progress-fill" style="width: ${percentage}%; background: ${index === 0 ? '#ff6b6b' : 'var(--primary-color)'};"></div>
                         </div>
                     </div>
                 `;
