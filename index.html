@@ -11,7 +11,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=13">
+    <script>
+        // Init dark mode immediately to prevent FOUC
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 
 <body>
@@ -21,10 +27,30 @@
                 <span class="logo-icon">📱</span>
                 <span class="logo-text">행사폰</span>
             </a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="header-right-actions" style="display: flex; align-items: center; gap: 1rem;">
+                <button class="theme-toggle" id="theme-toggle" aria-label="다크 모드 전환">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
             <nav class="nav-links">
                 <a href="special.html">오늘의 특가</a>
@@ -87,7 +113,7 @@
             </div>
         </section>
 
-        <section id="features" class="section">
+        <section id="features" class="section reveal">
             <div class="container section-inner text-center">
                 <h2 class="section-title">행사폰만의 <span>3가지 약속</span></h2>
                 <p class="section-desc">호갱 당할 일 없는 가장 투명하고 정직한 모바일 성지</p>
@@ -111,7 +137,7 @@
             </div>
         </section>
 
-        <section id="guide" class="section bg-light">
+        <section id="guide" class="section bg-light reveal">
             <div class="container section-inner text-center">
                 <h2 class="section-title">쉽고 빠른 <span>구매 절차</span></h2>
                 <p class="section-desc">단 3단계면 전국 최저가로 원하시는 핸드폰을 개통하실 수 있습니다.</p>
@@ -135,7 +161,7 @@
             </div>
         </section>
 
-        <section id="reviews" class="section">
+        <section id="reviews" class="section reveal">
             <div class="container section-inner">
                 <h2 class="section-title">실제 <span>구매 후기</span></h2>
                 <p class="section-desc">행사폰에서 개통하신 고객님들의 생생한 후기를 확인하세요.</p>
@@ -190,7 +216,7 @@
         </section>
 
         <!-- FAQ Section -->
-        <section id="faq" class="section">
+        <section id="faq" class="section reveal">
             <div class="container section-inner text-center">
                 <h2 class="section-title">자주 묻는 <span>질문 (FAQ)</span></h2>
                 <p class="section-desc">고객님들이 가장 많이 궁금해하시는 내용을 모았습니다.</p>
@@ -230,7 +256,7 @@
             </div>
         </section>
 
-        <section id="location" class="section bg-light">
+        <section id="location" class="section bg-light reveal">
             <div class="container section-inner text-center">
                 <h2 class="section-title">지역별 <span>성지 문의하기</span></h2>
                 <p class="section-desc">원하시는 지역을 선택하여 카카오톡으로 빠르게 단가 문의를 진행해 보세요.</p>
@@ -278,7 +304,7 @@
             </div>
         </section>
 
-        <section id="support" class="section">
+        <section id="support" class="section reveal">
             <div class="container section-inner flex-center">
                 <div class="support-box">
                     <h2>무엇을 도와드릴까요?</h2>
@@ -293,7 +319,7 @@
         </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer reveal">
         <div class="container">
             <div class="footer-info">
                 <h3 class="footer-logo">행사폰</h3>
@@ -303,6 +329,52 @@
             </div>
         </div>
     </footer>
+
+    <!-- Bottom Navigation Bar (Mobile only) -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>홈</span>
+        </a>
+        <a href="special.html" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+            <span>특가</span>
+        </a>
+        <a href="prices.html" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            <span>시세표</span>
+        </a>
+        <a href="reviews.html" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>후기</span>
+        </a>
+        <a href="profile.html" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>MY</span>
+        </a>
+    </nav>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
 
     <script>
         function openTab(evt, tabId) {
@@ -365,6 +437,7 @@
     <script src="auth.js"></script>
     <script src="mobile-nav.js"></script>
     <script src="main-banner.js"></script>
+    <script src="ui-enhancements.js"></script>
 
     <!-- FAQ Accordion Script -->
     <script>
