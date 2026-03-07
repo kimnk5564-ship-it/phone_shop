@@ -73,4 +73,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loadLiveSpecials();
+
+    // Countdown Timer Logic (To Midnight)
+    const countdownEl = document.getElementById('countdown-clock');
+    if (countdownEl) {
+        function updateCountdown() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setHours(24, 0, 0, 0); // Next midnight
+
+            const diffMs = tomorrow - now;
+
+            const h = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+            const formattedH = String(h).padStart(2, '0');
+            const formattedM = String(m).padStart(2, '0');
+            const formattedS = String(s).padStart(2, '0');
+
+            countdownEl.textContent = `${formattedH}:${formattedM}:${formattedS}`;
+        }
+
+        // Initial call and set interval
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    }
 });

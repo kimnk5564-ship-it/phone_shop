@@ -48,6 +48,17 @@
                 style="position: absolute; right: 15px; top: 12px; background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer;">&times;</button>
         </div>
 
+        <!-- Realtime Ticker -->
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <div class="ticker__item">🔥 방금 서울 영등포점에서 아이폰 17 PRO 개통 완료!</div>
+                <div class="ticker__item">🚀 10분 전 하남점에서 Z플립7 상담이 진행되었습니다.</div>
+                <div class="ticker__item">🎉 경기도 성남점 S26 울트라 재고 소량 입고!</div>
+                <div class="ticker__item">⭐ 김*호 고객님 외 24명이 오늘 성지 할인을 받았습니다.</div>
+                <div class="ticker__item">🔥 방금 서울 영등포점에서 아이폰 17 PRO 개통 완료!</div>
+            </div>
+        </div>
+
         <section class="hero-banner">
             <!-- Animated Background Glows -->
             <div class="bg-element elem-1"></div>
@@ -119,6 +130,46 @@
                         <div class="step-num">03</div>
                         <h3>매장 방문 및 개통</h3>
                         <p>예약일에 맞춰 매장을 방문하고<br>신속하게 당일 개통을 완료합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="section">
+            <div class="container section-inner text-center">
+                <h2 class="section-title">자주 묻는 <span>질문 (FAQ)</span></h2>
+                <p class="section-desc">고객님들이 가장 많이 궁금해하시는 내용을 모았습니다.</p>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">Q. 동네 대리점보다 왜 이렇게 저렴한가요?<span class="faq-icon">+</span></button>
+                        <div class="faq-answer">
+                            <p>저희 행사폰은 복잡한 중간 유통 과정과 과도한 마케팅 비용을 최소화하고, 판매 수수료의 대부분을 고객님께 할인 혜택으로 돌려드리는 박리다매 방식을 취하고 있어
+                                전국 최저가 수준의 단가가 가능합니다.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Q. 기변(기기변경)과 이동(번호이동)의 차이가 뭔가요?<span
+                                class="faq-icon">+</span></button>
+                        <div class="faq-answer">
+                            <p><strong>기기변경(기변)</strong>은 현재 사용 중인 통신사를 그대로 유지하면서 기기만 바꾸는 것이며,
+                                <strong>번호이동(이동)</strong>은 사용하던 번호는 그대로 유지하되 통신사만(예: SKT -> KT) 변경하는 것을 말합니다. 통상적으로 통신사를
+                                옮기는 번호이동의 단가가 더 저렴합니다.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Q. 정말 방문 당일 바로 개통이 되나요?<span class="faq-icon">+</span></button>
+                        <div class="faq-answer">
+                            <p>네! 카카오톡 상담을 통해 원하시는 기종과 색상의 재고를 미리 확보해 놓고 방문 예약을 잡아드리기 때문에, 매장에 도착하시면 서류 작성 후 즉시 개통하여 기기를
+                                수령하실 수 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Q. 원치 않는 부가서비스도 가입해야 하나요?<span class="faq-icon">+</span></button>
+                        <div class="faq-answer">
+                            <p>아닙니다. 행사폰은 불필요한 고가의 요금제나 부가서비스 유지를 강제하지 않으며, 시세표에 적힌 요금제 기준(SKT 109 등) 외의 추가 비용을 절대로 요구하지
+                                않습니다.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -305,6 +356,46 @@
     <script src="auth.js"></script>
     <script src="mobile-nav.js"></script>
     <script src="main-banner.js"></script>
+
+    <!-- FAQ Accordion Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function () {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('.faq-icon');
+
+                    // Close all other
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        if (ans !== answer) {
+                            ans.style.maxHeight = null;
+                            ans.previousElementSibling.classList.remove('active');
+                            ans.previousElementSibling.querySelector('.faq-icon').textContent = '+';
+                        }
+                    });
+
+                    // Toggle current
+                    this.classList.toggle('active');
+                    if (this.classList.contains('active')) {
+                        icon.textContent = '-';
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    } else {
+                        icon.textContent = '+';
+                        answer.style.maxHeight = null;
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Floating Kakao Button -->
+    <a href="#location" class="floating-kakao tooltip-trigger" title="빠른 카톡 상담">
+        <svg fill="#000000" viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M12 3c-5.523 0-10 3.582-10 8 0 2.862 1.83 5.378 4.606 6.81l-1.127 4.197c-.12.45.385.808.77.562l4.893-3.11c.928.232 1.895.34 2.858.34 5.523 0 10-3.581 10-8s-4.477-8-10-8zm0 13c-3.866 0-7-2.686-7-6s3.134-6 7-6 7 2.686 7 6-3.134 6-7 6z" />
+        </svg>
+    </a>
 </body>
 
 </html>

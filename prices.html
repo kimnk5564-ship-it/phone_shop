@@ -276,6 +276,20 @@
                 <h2 class="section-title">투명한 <span>시세표</span></h2>
                 <p class="section-desc">매일 업데이트되는 전국 최저가 단가표입니다. 지역 카테고리를 선택해 주세요.</p>
 
+                <!-- Today's Date Box -->
+                <div id="today-date-box"
+                    style="display:inline-block; background:rgba(0, 86, 179, 0.08); color:var(--primary-dark); padding:0.6rem 1.5rem; border-radius:50px; font-weight:800; font-size:1.1rem; margin-bottom:2rem; box-shadow:0 4px 10px rgba(0,0,0,0.02); border:1px solid rgba(0,86,179,0.1);">
+                    📅 <span id="current-date-text">로딩 중...</span> 기준 최신 시세
+                </div>
+
+                <!-- Search/Filter Input -->
+                <div style="max-width:400px; margin:0 auto 2rem auto; position:relative;">
+                    <input type="text" id="price-search-input" placeholder="기종 검색 (예: 아이폰, Z플립)"
+                        style="width:100%; padding:1rem 1.5rem 1rem 3rem; border-radius:50px; border:2px solid #e9ecef; font-size:1rem; outline:none; transition:border-color 0.3s ease; box-shadow:0 4px 15px rgba(0,0,0,0.02);">
+                    <span
+                        style="position:absolute; left:1.2rem; top:50%; transform:translateY(-50%); color:#adb5bd; font-size:1.2rem;">🔍</span>
+                </div>
+
                 <!-- 시세표 보는 법 안내 가이드 -->
                 <div class="guide-box">
                     <div class="guide-item">
@@ -1071,6 +1085,45 @@
             document.getElementById(tabId).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
+        // --- New Features Logic ---
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Today's Date Calculation & Display
+            const dateTextEl = document.getElementById('current-date-text');
+            if (dateTextEl) {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = today.getMonth() + 1;
+                const date = today.getDate();
+                const days = ['일', '월', '화', '수', '목', '금', '토'];
+                const dayStr = days[today.getDay()];
+                dateTextEl.textContent = `${year}년 ${month}월 ${date}일 (${dayStr})`;
+            }
+
+            // 2. Price Table Search/Filter Logic
+            const searchInput = document.getElementById('price-search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', function (e) {
+                    const searchTerm = e.target.value.toLowerCase().replace(/\s+/g, '');
+                    // 모든 가격표의 데이터 행(tbody > tr)을 가져옵니다.
+                    const allTableRows = document.querySelectorAll('.price-table tbody tr');
+
+                    allTableRows.forEach(row => {
+                        // 각 행의 모델명 셀 찾기
+                        // rowspan이 병합된 첫 행의 경우 td 중 model-name-cell 클래스를 가진 요소를 찾음
+                        // 병합된 두 번째 행(용량만 다른 행)의 경우 모델명 셀이 없을 수 있으므로 이전 형제 행(이전 rowspan)에서 찾아야 완벽하지만,
+                        // UX 편의상 행 전체의 텍스트를 검색 대상으로 삼습니다.
+                        const rowText = row.textContent.toLowerCase().replace(/\s+/g, '');
+
+                        if (rowText.includes(searchTerm)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
     </script>
     <script src="auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>

@@ -166,6 +166,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <span class="review-date">${dateStr}</span>
             </div>
+            
+            <!-- Dummy Photo Gallery for UI -->
+            <div class="review-gallery" style="display:flex; gap:0.5rem; margin-bottom:1rem; overflow-x:auto; padding-bottom:0.5rem; scrollbar-width:none;">
+                <div style="width:80px; height:80px; background:#f1f3f5; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#adb5bd; font-size:1.5rem;">📸</div>
+            </div>
+
             <p class="review-text" style="font-style: normal; margin-bottom: 1.5rem;">${escapeHTML(review.content)}</p>
             <div class="review-footer" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid #f8f9fa;">
                 <span class="review-model" style="color: #495057;">📱 ${escapeHTML(review.model)}</span>
