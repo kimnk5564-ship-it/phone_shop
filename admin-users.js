@@ -73,23 +73,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function migrateLocalUsers() {
-        if (localStorage.getItem('users_migrated_to_firestore') === 'true') return;
+        if (localStorage.getItem('users_migrated_v2') === 'true') return;
 
         try {
             const localUsersStr = localStorage.getItem('users');
-            if (!localUsersStr) return;
+            if (!localUsersStr) {
+                localStorage.setItem('users_migrated_v2', 'true');
+                return;
+            }
             const localUsers = JSON.parse(localUsersStr);
-            Object.keys(localUsers).forEach(username => {
+            const promises = Object.keys(localUsers).map(username => {
                 const u = localUsers[username];
-                db.collection('users').doc('local_' + username).set({
-                    email: username + '@phoneshop.local',
-                    username: username,
-                    name: u.name || username,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true }).catch(console.error);
+                const docRef = db.collection('users').doc('local_' + username);
+                return docRef.get().then(doc => {
+                    if (!doc.exists) {
+                        return docRef.set({
+                            email: username + '@phoneshop.local',
+                            username: username,
+                            name: u.name || username,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            source: 'localStorage_migration'
+                        });
+                    }
+                });
             });
-            localStorage.setItem('users_migrated_to_firestore', 'true');
-            console.log('Migrated old local users to Firestore users collection successfully.');
+
+            Promise.all(promises).then(() => {
+                localStorage.setItem('users_migrated_v2', 'true');
+                console.log('Migrated old local users to Firestore successfully.');
+                // 1초 뒤에 목록 다시 불러오기 (데이터 동기화 완료 후)
+                setTimeout(loadAllUsers, 1000);
+            }).catch(console.error);
+
         } catch (e) {
             console.error('Error migrating local users', e);
         }
