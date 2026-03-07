@@ -1,25 +1,19 @@
 :root {
-    --primary-color: #d4af37;
-    /* Classic Gold */
-    --primary-light: #f3e5ab;
-    /* Light Vanilla Gold */
-    --primary-dark: #aa8a2e;
-    /* Deep Gold */
+    --primary-color: #0056b3;
+    --primary-light: #4dabf7;
+    --primary-dark: #003b80;
     --white: #ffffff;
-    --text-dark: #1a1a1a;
-    /* Charcoal Black for premium contrast */
+    --text-dark: #212529;
     --text-light: #f8f9fa;
-    --bg-light: #fcfbf9;
-    /* Slightly warm background */
-    --accent: #2c2c2c;
-    /* Dark Accent */
+    --bg-light: #f1f3f5;
+    --accent: #ff6b6b;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Serif KR', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', serif;
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
@@ -56,29 +50,55 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--primary-color);
     text-decoration: none;
     cursor: pointer;
+    letter-spacing: -0.5px;
+    padding: 0.4rem 1rem;
+    background: rgba(0, 86, 179, 0.05);
+    border-radius: 50px;
     transition: all 0.3s ease;
-    padding: 0.2rem;
+    border: 1px solid rgba(0, 86, 179, 0.1);
 }
 
 .logo:hover {
+    background: rgba(0, 86, 179, 0.08);
     transform: translateY(-2px);
-    opacity: 0.95;
-    filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.3));
+    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.1);
 }
 
-.header-logo {
-    height: 48px;
-    /* Slightly larger logic to showcase the crown */
-    width: auto;
-    object-fit: contain;
+.logo-icon {
+    font-size: 1.8rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.logo:hover .header-logo {
-    transform: scale(1.05);
+.logo:hover .logo-icon {
+    transform: rotate(-10deg) scale(1.1);
+}
+
+.logo-text {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    padding-right: 0.2rem;
+}
+
+.logo-text::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    bottom: 6px;
+    right: -4px;
+    box-shadow: 0 0 8px var(--accent);
 }
 
 .nav-links {
