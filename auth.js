@@ -15,6 +15,7 @@ const Auth = {
         try {
             const email = this._getEmailFromUsername(username);
             const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
             // Update profile with name
             await user.updateProfile({ displayName: name });
 

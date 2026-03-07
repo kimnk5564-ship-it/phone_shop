@@ -21,17 +21,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Sort by createdAt descending in JS
             users.sort((a, b) => {
-                const dateA = a.createdAt ? a.createdAt.toMillis() : 0;
-                const dateB = b.createdAt ? b.createdAt.toMillis() : 0;
-                return dateB - dateA;
+                const getMs = (val) => {
+                    if (!val) return 0;
+                    if (typeof val.toMillis === 'function') return val.toMillis();
+                    if (typeof val.getTime === 'function') return val.getTime();
+                    if (val instanceof Date) return val.getTime();
+                    try { return new Date(val).getTime() || 0; } catch (e) { return 0; }
+                };
+                return getMs(b.createdAt) - getMs(a.createdAt);
             });
 
             users.forEach(data => {
                 // Format Date
                 let dateStr = '날짜 없음';
-                if (data.createdAt && typeof data.createdAt.toDate === 'function') {
-                    const d = data.createdAt.toDate();
-                    dateStr = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+                if (data.createdAt) {
+                    let d = null;
+                    if (typeof data.createdAt.toDate === 'function') {
+                        d = data.createdAt.toDate();
+                    } else if (data.createdAt instanceof Date) {
+                        d = data.createdAt;
+                    } else if (typeof data.createdAt === 'string' || typeof data.createdAt === 'number') {
+                        d = new Date(data.createdAt);
+                    }
+                    if (d && !isNaN(d.getTime())) {
+                        dateStr = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+                    }
                 }
 
                 const tr = document.createElement('tr');
