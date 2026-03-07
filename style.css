@@ -1852,13 +1852,13 @@ body {
     }
 
     .ticker-wrap {
-        top: 60px;
-        /* Height of the mobile navbar */
-        padding: 10px 0;
+        top: 65px;
+        /* Height of the mobile navbar adjusted to prevent overlap */
+        padding: 12px 0;
     }
 
     .hero-banner {
-        padding-top: 9rem;
+        padding-top: 10rem;
         /* Prevent mobile hero badge from overlapping with ticker */
     }
 

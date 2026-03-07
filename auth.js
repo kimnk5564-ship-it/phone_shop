@@ -9,82 +9,87 @@ const Auth = {
 
     // --- Kakao Login Bridge ---
     loginWithKakao: function () {
-        if (typeof Kakao === 'undefined') {
-            alert('카카오 로그인 스크립트를 불러오지 못했습니다. 새로고침 후 다시 시도해주세요.');
-            return;
-        }
-
-        if (!Kakao.isInitialized()) {
-            Kakao.init('17acc2b514f0416cc0393fffe4acfb20');
-        }
-
-        Kakao.Auth.login({
-            success: function (authObj) {
-                // Request user info
-                Kakao.API.request({
-                    url: '/v2/user/me',
-                    success: async function (res) {
-                        const kakaoId = 'kakao_' + res.id;
-                        const nickname = res.properties && res.properties.nickname ? res.properties.nickname : '카카오유저';
-                        // Create a secure dummy password based on kakao ID for Firebase bridge
-                        const dummyPassword = 'kakaoPhoneShopAuth!@#' + kakaoId;
-
-                        const firebaseEmail = Auth._getEmailFromUsername(kakaoId);
-
-                        try {
-                            // Try to login if user already exists in Firebase
-                            const userCredential = await firebase.auth().signInWithEmailAndPassword(firebaseEmail, dummyPassword);
-                            Auth.updateActivityTime();
-                            alert(nickname + '님, 환영합니다!');
-                            window.location.href = 'index.html';
-                        } catch (error) {
-                            if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-                                // User doesn't exist, register them silently
-                                try {
-                                    const userCredential = await firebase.auth().createUserWithEmailAndPassword(firebaseEmail, dummyPassword);
-                                    await userCredential.user.updateProfile({ displayName: nickname });
-
-                                    // Save to Firestore
-                                    await db.collection('users').doc(userCredential.user.uid).set({
-                                        email: firebaseEmail,
-                                        username: kakaoId,
-                                        name: nickname,
-                                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                                    });
-
-                                    // Update stats
-                                    const statsRef = db.collection('stats').doc('users');
-                                    const doc = await statsRef.get();
-                                    if (doc.exists) {
-                                        await statsRef.update({ count: firebase.firestore.FieldValue.increment(1) });
-                                    } else {
-                                        await statsRef.set({ count: 1 });
-                                    }
-
-                                    Auth.updateActivityTime();
-                                    alert('카카오 간편가입이 완료되었습니다. 환영합니다!');
-                                    window.location.href = 'index.html';
-                                } catch (regError) {
-                                    console.error('Kakao Registration Bridge Error:', regError);
-                                    alert('카카오 가입 연동 중 오류가 발생했습니다.');
-                                }
-                            } else {
-                                console.error('Kakao Login Bridge Error:', error);
-                                alert('로그인 연동 중 오류가 발생했습니다.');
-                            }
-                        }
-                    },
-                    fail: function (error) {
-                        console.error('Kakao user info error:', error);
-                        alert('카카오 사용자 정보를 가져오지 못했습니다.');
-                    }
-                });
-            },
-            fail: function (err) {
-                console.error('Kakao login popup error:', err);
-                alert('카카오 로그인을 취소하거나 오류가 발생했습니다.');
+        try {
+            if (typeof Kakao === 'undefined') {
+                alert('카카오 로그인 스크립트를 불러오지 못했습니다. 새로고침 후 다시 시도해주세요.');
+                return;
             }
-        });
+
+            if (!Kakao.isInitialized()) {
+                Kakao.init('17acc2b514f0416cc0393fffe4acfb20');
+            }
+
+            Kakao.Auth.login({
+                success: function (authObj) {
+                    // Request user info
+                    Kakao.API.request({
+                        url: '/v2/user/me',
+                        success: async function (res) {
+                            const kakaoId = 'kakao_' + res.id;
+                            const nickname = res.properties && res.properties.nickname ? res.properties.nickname : '카카오유저';
+                            // Create a secure dummy password based on kakao ID for Firebase bridge
+                            const dummyPassword = 'kakaoPhoneShopAuth!@#' + kakaoId;
+
+                            const firebaseEmail = Auth._getEmailFromUsername(kakaoId);
+
+                            try {
+                                // Try to login if user already exists in Firebase
+                                const userCredential = await firebase.auth().signInWithEmailAndPassword(firebaseEmail, dummyPassword);
+                                Auth.updateActivityTime();
+                                alert(nickname + '님, 환영합니다!');
+                                window.location.href = 'index.html';
+                            } catch (error) {
+                                if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+                                    // User doesn't exist, register them silently
+                                    try {
+                                        const userCredential = await firebase.auth().createUserWithEmailAndPassword(firebaseEmail, dummyPassword);
+                                        await userCredential.user.updateProfile({ displayName: nickname });
+
+                                        // Save to Firestore
+                                        await db.collection('users').doc(userCredential.user.uid).set({
+                                            email: firebaseEmail,
+                                            username: kakaoId,
+                                            name: nickname,
+                                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                                        });
+
+                                        // Update stats
+                                        const statsRef = db.collection('stats').doc('users');
+                                        const doc = await statsRef.get();
+                                        if (doc.exists) {
+                                            await statsRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+                                        } else {
+                                            await statsRef.set({ count: 1 });
+                                        }
+
+                                        Auth.updateActivityTime();
+                                        alert('카카오 간편가입이 완료되었습니다. 환영합니다!');
+                                        window.location.href = 'index.html';
+                                    } catch (regError) {
+                                        console.error('Kakao Registration Bridge Error:', regError);
+                                        alert('카카오 가입 연동 중 오류가 발생했습니다.');
+                                    }
+                                } else {
+                                    console.error('Kakao Login Bridge Error:', error);
+                                    alert('로그인 연동 중 오류가 발생했습니다.');
+                                }
+                            }
+                        },
+                        fail: function (error) {
+                            console.error('Kakao user info error:', error);
+                            alert('카카오 사용자 정보를 가져오지 못했습니다.');
+                        }
+                    });
+                },
+                fail: function (err) {
+                    console.error('Kakao login popup error:', err);
+                    alert('카카오 로그인을 취소하거나 오류가 발생했습니다.\n에러 내용: ' + JSON.stringify(err));
+                }
+            });
+        } catch (error) {
+            console.error('Kakao login initialization error:', error);
+            alert('카카오 로그인 실행 중 오류가 발생했습니다.\n(원인: ' + error.message + ')\n카카오 디벨로퍼스 플랫폼 설정에 현재 도메인이 등록되어 있는지 확인해주세요!');
+        }
     },
 
     // 1. Register a new user
