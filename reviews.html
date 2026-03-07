@@ -56,38 +56,33 @@
                 </div>
 
                 <!-- Review Summary Dashboard -->
-                <div class="review-dashboard"
-                    style="background:#fff; border-radius:15px; padding:2rem; margin-top:2rem; box-shadow:0 5px 20px rgba(0,0,0,0.05); display:flex; justify-content:space-around; align-items:center; flex-wrap:wrap; gap:1.5rem; border:1px solid #f1f3f5;">
-                    <div style="text-align:center;">
-                        <div style="font-size:3rem; font-weight:900; color:var(--primary-dark); line-height:1;">4.9
-                        </div>
-                        <div style="color:#ffc107; font-size:1.5rem; letter-spacing:2px; margin:0.5rem 0;">★★★★★</div>
-                        <div style="font-size:0.9rem; color:#868e96;">최근 작성된 후기 기준</div>
+                <div class="review-dashboard">
+                    <div class="dashboard-score-box">
+                        <div class="dashboard-score">4.9</div>
+                        <div class="dashboard-stars">★★★★★</div>
+                        <div class="dashboard-desc">최근 작성된 후기 기준</div>
                     </div>
-                    <div style="border-left:1px solid #e9ecef; padding-left:2.5rem;">
-                        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
-                            <span style="font-size:0.9rem; width:30px; color:#495057;">5점</span>
-                            <div
-                                style="width:150px; height:8px; background:#e9ecef; border-radius:4px; overflow:hidden;">
-                                <div style="width:92%; height:100%; background:var(--primary-color);"></div>
+                    <div class="dashboard-bars">
+                        <div class="bar-row">
+                            <span class="bar-label">5점</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width:92%;"></div>
                             </div>
-                            <span style="font-size:0.85rem; color:#868e96;">92%</span>
+                            <span class="bar-percent">92%</span>
                         </div>
-                        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
-                            <span style="font-size:0.9rem; width:30px; color:#495057;">4점</span>
-                            <div
-                                style="width:150px; height:8px; background:#e9ecef; border-radius:4px; overflow:hidden;">
-                                <div style="width:8%; height:100%; background:var(--primary-color);"></div>
+                        <div class="bar-row">
+                            <span class="bar-label">4점</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width:8%;"></div>
                             </div>
-                            <span style="font-size:0.85rem; color:#868e96;">8%</span>
+                            <span class="bar-percent">8%</span>
                         </div>
-                        <div style="display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:0.9rem; width:30px; color:#495057;">3점 이하</span>
-                            <div
-                                style="width:150px; height:8px; background:#e9ecef; border-radius:4px; overflow:hidden;">
-                                <div style="width:0%; height:100%; background:var(--primary-color);"></div>
+                        <div class="bar-row">
+                            <span class="bar-label">3점 이하</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width:0%;"></div>
                             </div>
-                            <span style="font-size:0.85rem; color:#868e96;">0%</span>
+                            <span class="bar-percent">0%</span>
                         </div>
                     </div>
                 </div>

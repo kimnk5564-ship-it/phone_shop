@@ -1671,12 +1671,16 @@ body {
 .ticker-wrap {
     width: 100%;
     overflow: hidden;
-    background-color: #212529;
+    background-color: rgba(33, 37, 41, 0.95);
+    /* Slight transparency looks premium over banner */
     color: #f8f9fa;
     padding: 8px 0;
     box-sizing: content-box;
-    position: relative;
-    z-index: 10;
+    position: absolute;
+    top: 80px;
+    /* Offset to appear right below the fixed PC navbar */
+    left: 0;
+    z-index: 100;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1826,8 +1830,8 @@ body {
 
 @media (max-width: 768px) {
     .floating-kakao {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         bottom: 20px;
         right: 20px;
     }
@@ -1838,12 +1842,223 @@ body {
     }
 
     .faq-question {
-        font-size: 1rem;
-        padding: 1.2rem 1.5rem;
+        font-size: 0.9rem;
+        padding: 1rem 1.2rem;
     }
 
     .faq-answer p {
-        font-size: 0.95rem;
-        padding: 0 1.5rem 1.2rem 1.5rem;
+        font-size: 0.85rem;
+        padding: 0 1.2rem 1rem 1.2rem;
     }
+
+    .ticker-wrap {
+        top: 60px;
+        /* Height of the mobile navbar */
+    }
+
+    .today-date-box {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .price-search-wrapper {
+        margin-bottom: 1.5rem;
+    }
+
+    .price-search-input {
+        padding: 0.8rem 1.2rem 0.8rem 2.5rem;
+        font-size: 0.85rem;
+    }
+
+    .price-search-icon {
+        font-size: 1rem;
+        left: 1rem;
+    }
+
+    .special-timer-box {
+        padding: 0.8rem 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .timer-label {
+        font-size: 0.75rem;
+    }
+
+    .countdown-clock {
+        font-size: 1.6rem;
+    }
+
+    .review-dashboard {
+        padding: 1.2rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .dashboard-bars {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid #e9ecef;
+        padding-top: 1rem;
+        width: 100%;
+    }
+
+    .bar-track {
+        flex: 1;
+        /* take up remaining horizontal space on mobile */
+    }
+
+    .dashboard-score {
+        font-size: 2.2rem;
+    }
+
+    .dashboard-stars {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- Restructured Component CSS --- */
+
+/* Today's Date Box */
+.today-date-box {
+    display: inline-block;
+    background: rgba(0, 86, 179, 0.08);
+    color: var(--primary-dark);
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 86, 179, 0.1);
+}
+
+/* Price Search Input */
+.price-search-wrapper {
+    max-width: 400px;
+    margin: 0 auto 2rem auto;
+    position: relative;
+}
+
+.price-search-input {
+    width: 100%;
+    padding: 1rem 1.5rem 1rem 3rem;
+    border-radius: 50px;
+    border: 2px solid #e9ecef;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.price-search-icon {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #adb5bd;
+    font-size: 1.2rem;
+}
+
+/* Special Timer Box */
+.special-timer-box {
+    display: inline-block;
+    margin-bottom: 2.5rem;
+    background: #212529;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.timer-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ffc107;
+    margin-bottom: 0.3rem;
+}
+
+.countdown-clock {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Review Dashboard */
+.review-dashboard {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    border: 1px solid #f1f3f5;
+}
+
+.dashboard-score-box {
+    text-align: center;
+}
+
+.dashboard-score {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--primary-dark);
+    line-height: 1;
+}
+
+.dashboard-stars {
+    color: #ffc107;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin: 0.5rem 0;
+}
+
+.dashboard-desc {
+    font-size: 0.9rem;
+    color: #868e96;
+}
+
+.dashboard-bars {
+    border-left: 1px solid #e9ecef;
+    padding-left: 2.5rem;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.bar-row:last-child {
+    margin-bottom: 0;
+}
+
+.bar-label {
+    font-size: 0.9rem;
+    width: 40px;
+    color: #495057;
+}
+
+.bar-track {
+    width: 150px;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: var(--primary-color);
+}
+
+.bar-percent {
+    font-size: 0.85rem;
+    color: #868e96;
 }
