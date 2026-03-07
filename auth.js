@@ -1,12 +1,5 @@
 // auth.js - Firebase Authentication & Kakao Auth implementation
 
-// Initialize Kakao SDK if available
-if (typeof Kakao !== 'undefined') {
-    // Replace with the user's provided Kakao JS Key
-    if (!Kakao.isInitialized()) {
-        Kakao.init('17acc2b514f0416cc0393fffe4acfb20');
-    }
-}
 
 const Auth = {
     // We use a dummy domain to treat usernames as emails for Firebase
@@ -17,8 +10,12 @@ const Auth = {
     // --- Kakao Login Bridge ---
     loginWithKakao: function () {
         if (typeof Kakao === 'undefined') {
-            alert('카카오 로그인 스크립트를 불러오지 못했습니다.');
+            alert('카카오 로그인 스크립트를 불러오지 못했습니다. 새로고침 후 다시 시도해주세요.');
             return;
+        }
+
+        if (!Kakao.isInitialized()) {
+            Kakao.init('17acc2b514f0416cc0393fffe4acfb20');
         }
 
         Kakao.Auth.login({
