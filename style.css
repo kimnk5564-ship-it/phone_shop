@@ -169,35 +169,35 @@ body {
 .bg-element {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
     z-index: 0;
+    will-change: transform;
     animation: float 12s infinite ease-in-out;
 }
 
 .elem-1 {
-    width: 400px;
-    height: 400px;
-    background: rgba(255, 255, 255, 0.15);
-    top: -100px;
-    left: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    top: -200px;
+    left: -200px;
     animation-delay: 0s;
 }
 
 .elem-2 {
-    width: 500px;
-    height: 500px;
-    background: rgba(77, 171, 247, 0.25);
-    bottom: -150px;
-    right: -100px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(77, 171, 247, 0.25) 0%, rgba(77, 171, 247, 0) 70%);
+    bottom: -250px;
+    right: -200px;
     animation-delay: -4s;
 }
 
 .elem-3 {
-    width: 300px;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.1);
-    top: 30%;
-    left: 70%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    top: 20%;
+    left: 60%;
     animation-delay: -8s;
 }
 
@@ -1690,6 +1690,7 @@ body {
     white-space: nowrap;
     padding-right: 100%;
     animation: ticker 30s linear infinite;
+    will-change: transform;
 }
 
 .ticker:hover {

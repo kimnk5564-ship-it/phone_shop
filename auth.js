@@ -227,10 +227,9 @@ const Auth = {
             }
         };
 
-        // Track activities (Removed mousemove to prevent input lag on low-end devices)
+        // Track activities (Removed mousemove/scroll to prevent input lag on low-end devices)
         window.addEventListener('keydown', resetTimer, { passive: true });
         window.addEventListener('click', resetTimer, { passive: true });
-        window.addEventListener('scroll', resetTimer, { passive: true });
 
         // Check inactivity every 1 minute
         setInterval(() => {
