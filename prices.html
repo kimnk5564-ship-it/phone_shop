@@ -281,13 +281,6 @@
                     📅 <span id="current-date-text">로딩 중...</span> 기준 최신 시세
                 </div>
 
-                <!-- Search/Filter Input -->
-                <div class="price-search-wrapper">
-                    <input type="text" id="price-search-input" class="price-search-input"
-                        placeholder="기종 검색 (예: 아이폰, Z플립)">
-                    <span class="price-search-icon">🔍</span>
-                </div>
-
                 <!-- 시세표 보는 법 안내 가이드 -->
                 <div class="guide-box">
                     <div class="guide-item">
@@ -313,14 +306,6 @@
                     </div>
                 </div>
 
-                <div class="tabs-wrapper">
-                    <div class="tabs-container">
-                        <button class="tab-btn active" onclick="openTab(event, 'tab-seoul')">서울</button>
-                        <button class="tab-btn" onclick="openTab(event, 'tab-gyeonggi')">경기/인천</button>
-                        <button class="tab-btn" onclick="openTab(event, 'tab-others')">기타</button>
-                    </div>
-                </div>
-
                 <div class="tab-content" id="tab-seoul" style="display: block;">
                     <!-- 1차 하위 탭 (아이폰 / 갤럭시) -->
                     <div class="sub-tabs-wrapper">
@@ -328,6 +313,13 @@
                             onclick="openSubTab(event, 'seoul-iphone', 'sub-tab-btn', 'sub-tab-content')">아이폰</button>
                         <button class="sub-tab-btn"
                             onclick="openSubTab(event, 'seoul-galaxy', 'sub-tab-btn', 'sub-tab-content')">갤럭시</button>
+                    </div>
+
+                    <!-- Search/Filter Input -->
+                    <div class="price-search-wrapper" style="margin-top: 1rem;">
+                        <input type="text" id="price-search-input" class="price-search-input"
+                            placeholder="기종 검색 (예: 아이폰, Z플립)">
+                        <span class="price-search-icon">🔍</span>
                     </div>
 
                     <!-- 아이폰 내용 -->
@@ -551,466 +543,6 @@
                     </div>
                 </div>
 
-                <div class="tab-content" id="tab-gyeonggi" style="display: none;">
-                    <!-- 1차 하위 탭 (아이폰 / 갤럭시) -->
-                    <div class="sub-tabs-wrapper">
-                        <button class="sub-tab-btn active"
-                            onclick="openSubTab(event, 'gyeonggi-iphone', 'sub-tab-btn', 'sub-tab-content')">아이폰</button>
-                        <button class="sub-tab-btn"
-                            onclick="openSubTab(event, 'gyeonggi-galaxy', 'sub-tab-btn', 'sub-tab-content')">갤럭시</button>
-                    </div>
-
-                    <!-- 아이폰 내용 -->
-                    <div class="sub-tab-content" id="gyeonggi-iphone" style="display: block;">
-                        <div class="table-container wide-table">
-                            <table class="price-table">
-                                <thead>
-                                    <tr>
-                                        <th rowspan="2">기종</th>
-                                        <th rowspan="2">용량</th>
-                                        <th colspan="2">SKT (109)</th>
-                                        <th colspan="2">KT (110)</th>
-                                        <th colspan="2">LGU+ (115)</th>
-                                    </tr>
-                                    <tr>
-                                        <th>이동</th>
-                                        <th>기변</th>
-                                        <th>이동</th>
-                                        <th>기변</th>
-                                        <th>이동</th>
-                                        <th>기변</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td rowspan="2" class="model-name-cell">아이폰 17</td>
-                                        <td class="capacity-cell">256G</td>
-                                        <td class="highlight-price">10</td>
-                                        <td>57</td>
-                                        <td class="highlight-price">24</td>
-                                        <td>32</td>
-                                        <td class="highlight-price">3</td>
-                                        <td>35</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="capacity-cell">512G</td>
-                                        <td class="highlight-price">40</td>
-                                        <td>87</td>
-                                        <td class="highlight-price">54</td>
-                                        <td>62</td>
-                                        <td class="highlight-price">33</td>
-                                        <td>65</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="2" class="model-name-cell">아이폰 17 AIR</td>
-                                        <td class="capacity-cell">256G</td>
-                                        <td class="highlight-price">49</td>
-                                        <td>86</td>
-                                        <td class="highlight-price">53</td>
-                                        <td>61</td>
-                                        <td class="highlight-price">-1</td>
-                                        <td>64</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="capacity-cell">512G</td>
-                                        <td class="highlight-price">79</td>
-                                        <td>116</td>
-                                        <td class="highlight-price">83</td>
-                                        <td>91</td>
-                                        <td class="highlight-price">29</td>
-                                        <td>94</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="2" class="model-name-cell">아이폰 17 PRO</td>
-                                        <td class="capacity-cell">256G</td>
-                                        <td class="highlight-price">59</td>
-                                        <td>106</td>
-                                        <td class="highlight-price">70</td>
-                                        <td>78</td>
-                                        <td class="highlight-price">52</td>
-                                        <td>84</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="capacity-cell">512G</td>
-                                        <td class="highlight-price">89</td>
-                                        <td>136</td>
-                                        <td class="highlight-price">100</td>
-                                        <td>108</td>
-                                        <td class="highlight-price">82</td>
-                                        <td>114</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="2" class="model-name-cell">아이폰 17 PRO MAX</td>
-                                        <td class="capacity-cell">256G</td>
-                                        <td class="highlight-price">129</td>
-                                        <td>155</td>
-                                        <td class="highlight-price">138</td>
-                                        <td>146</td>
-                                        <td class="highlight-price">129</td>
-                                        <td>151</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="capacity-cell">512G</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- 갤럭시 내용 -->
-                    <div class="sub-tab-content" id="gyeonggi-galaxy" style="display: none;">
-                        <!-- 2차 하위 탭 (S26 / 플립&폴드) -->
-                        <div class="nested-tabs-wrapper">
-                            <button class="nested-tab-btn active"
-                                onclick="openSubTab(event, 'galaxy-s26', 'nested-tab-btn', 'nested-tab-content')">S26
-                                시리즈</button>
-                            <button class="nested-tab-btn"
-                                onclick="openSubTab(event, 'galaxy-flipfold', 'nested-tab-btn', 'nested-tab-content')">플립/폴드
-                                시리즈</button>
-                        </div>
-
-                        <!-- S26 내용 -->
-                        <div class="nested-tab-content" id="galaxy-s26" style="display: block;">
-                            <div class="table-container wide-table">
-                                <table class="price-table">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2">기종</th>
-                                            <th rowspan="2">용량</th>
-                                            <th colspan="2">SKT (109)</th>
-                                            <th colspan="2">KT (110)</th>
-                                            <th colspan="2">LGU+ (115)</th>
-                                        </tr>
-                                        <tr>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="model-name-cell">S26</td>
-                                            <td class="capacity-cell">512G</td>
-                                            <td class="highlight-price">30</td>
-                                            <td>40</td>
-                                            <td class="highlight-price">15</td>
-                                            <td>25</td>
-                                            <td class="highlight-price">15</td>
-                                            <td>25</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="model-name-cell">S26+</td>
-                                            <td class="capacity-cell">512G</td>
-                                            <td class="highlight-price">50</td>
-                                            <td>60</td>
-                                            <td class="highlight-price">35</td>
-                                            <td>45</td>
-                                            <td class="highlight-price">35</td>
-                                            <td>45</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="model-name-cell">S26 Ultra</td>
-                                            <td class="capacity-cell">512G</td>
-                                            <td class="highlight-price">85</td>
-                                            <td>95</td>
-                                            <td class="highlight-price">70</td>
-                                            <td>80</td>
-                                            <td class="highlight-price">70</td>
-                                            <td>80</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- 플립/폴드 내용 -->
-                        <div class="nested-tab-content" id="galaxy-flipfold" style="display: none;">
-                            <div class="table-container wide-table">
-                                <table class="price-table">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2">기종</th>
-                                            <th rowspan="2">용량</th>
-                                            <th colspan="2">SKT (109)</th>
-                                            <th colspan="2">KT (110)</th>
-                                            <th colspan="2">LGU+ (115)</th>
-                                        </tr>
-                                        <tr>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Z플립7</td>
-                                            <td>256G</td>
-                                            <td class="highlight-price">14</td>
-                                            <td>45</td>
-                                            <td class="highlight-price">28</td>
-                                            <td>19</td>
-                                            <td class="highlight-price">11</td>
-                                            <td>6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Z폴드7</td>
-                                            <td>256G</td>
-                                            <td class="highlight-price">122</td>
-                                            <td>135</td>
-                                            <td class="highlight-price">127</td>
-                                            <td>118</td>
-                                            <td class="highlight-price">110</td>
-                                            <td>107</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-content" id="tab-others" style="display: none;">
-                    <!-- 1차 하위 탭 (아이폰 / 갤럭시) -->
-                    <div class="sub-tabs-wrapper">
-                        <button class="sub-tab-btn active"
-                            onclick="openSubTab(event, 'others-iphone', 'sub-tab-btn', 'sub-tab-content')">아이폰</button>
-                        <button class="sub-tab-btn"
-                            onclick="openSubTab(event, 'others-galaxy', 'sub-tab-btn', 'sub-tab-content')">갤럭시</button>
-                    </div>
-
-                    <!-- 아이폰 내용 -->
-                    <div class="sub-tab-content" id="others-iphone" style="display: block;">
-                        <div class="table-container wide-table">
-                            <table class="price-table">
-                                <thead>
-                                    <tr>
-                                        <th rowspan="2">기종</th>
-                                        <th rowspan="2">용량</th>
-                                        <th colspan="2">SKT (109)</th>
-                                        <th colspan="2">KT (110)</th>
-                                        <th colspan="2">LGU+ (115)</th>
-                                    </tr>
-                                    <tr>
-                                        <th>이동</th>
-                                        <th>기변</th>
-                                        <th>이동</th>
-                                        <th>기변</th>
-                                        <th>이동</th>
-                                        <th>기변</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td rowspan="2" class="model-name-cell">아이폰 17</td>
-                                        <td class="capacity-cell">256G</td>
-                                        <td class="highlight-price">10</td>
-                                        <td>57</td>
-                                        <td class="highlight-price">24</td>
-                                        <td>32</td>
-                                        <td class="highlight-price">3</td>
-                                        <td>35</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="capacity-cell">512G</td>
-                                        <td class="highlight-price">40</td>
-                                        <td>87</td>
-                                        <td class="highlight-price">54</td>
-                                        <td>62</td>
-                                        <td class="highlight-price">33</td>
-                                        <td>65</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="2" class="model-name-cell">아이폰 17 AIR</td>
-                                        <td class="capacity-cell">256G</td>
-                                        <td class="highlight-price">49</td>
-                                        <td>86</td>
-                                        <td class="highlight-price">53</td>
-                                        <td>61</td>
-                                        <td class="highlight-price">-1</td>
-                                        <td>64</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="capacity-cell">512G</td>
-                                        <td class="highlight-price">79</td>
-                                        <td>116</td>
-                                        <td class="highlight-price">83</td>
-                                        <td>91</td>
-                                        <td class="highlight-price">29</td>
-                                        <td>94</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="2" class="model-name-cell">아이폰 17 PRO</td>
-                                        <td class="capacity-cell">256G</td>
-                                        <td class="highlight-price">59</td>
-                                        <td>106</td>
-                                        <td class="highlight-price">70</td>
-                                        <td>78</td>
-                                        <td class="highlight-price">52</td>
-                                        <td>84</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="capacity-cell">512G</td>
-                                        <td class="highlight-price">89</td>
-                                        <td>136</td>
-                                        <td class="highlight-price">100</td>
-                                        <td>108</td>
-                                        <td class="highlight-price">82</td>
-                                        <td>114</td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="2" class="model-name-cell">아이폰 17 PRO MAX</td>
-                                        <td class="capacity-cell">256G</td>
-                                        <td class="highlight-price">129</td>
-                                        <td>155</td>
-                                        <td class="highlight-price">138</td>
-                                        <td>146</td>
-                                        <td class="highlight-price">129</td>
-                                        <td>151</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="capacity-cell">512G</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                        <td class="highlight-error">문의</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- 갤럭시 내용 -->
-                    <div class="sub-tab-content" id="others-galaxy" style="display: none;">
-                        <!-- 2차 하위 탭 (S26 / 플립&폴드) -->
-                        <div class="nested-tabs-wrapper">
-                            <button class="nested-tab-btn active"
-                                onclick="openSubTab(event, 'others-s26', 'nested-tab-btn', 'nested-tab-content')">S26
-                                시리즈</button>
-                            <button class="nested-tab-btn"
-                                onclick="openSubTab(event, 'others-flipfold', 'nested-tab-btn', 'nested-tab-content')">플립/폴드
-                                시리즈</button>
-                        </div>
-
-                        <!-- S26 내용 -->
-                        <div class="nested-tab-content" id="others-s26" style="display: block;">
-                            <div class="table-container wide-table">
-                                <table class="price-table">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2">기종</th>
-                                            <th rowspan="2">용량</th>
-                                            <th colspan="2">SKT (109)</th>
-                                            <th colspan="2">KT (110)</th>
-                                            <th colspan="2">LGU+ (115)</th>
-                                        </tr>
-                                        <tr>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="model-name-cell">S26</td>
-                                            <td class="capacity-cell">512G</td>
-                                            <td class="highlight-price">30</td>
-                                            <td>40</td>
-                                            <td class="highlight-price">15</td>
-                                            <td>25</td>
-                                            <td class="highlight-price">15</td>
-                                            <td>25</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="model-name-cell">S26+</td>
-                                            <td class="capacity-cell">512G</td>
-                                            <td class="highlight-price">50</td>
-                                            <td>60</td>
-                                            <td class="highlight-price">35</td>
-                                            <td>45</td>
-                                            <td class="highlight-price">35</td>
-                                            <td>45</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="model-name-cell">S26 Ultra</td>
-                                            <td class="capacity-cell">512G</td>
-                                            <td class="highlight-price">85</td>
-                                            <td>95</td>
-                                            <td class="highlight-price">70</td>
-                                            <td>80</td>
-                                            <td class="highlight-price">70</td>
-                                            <td>80</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- 플립/폴드 내용 -->
-                        <div class="nested-tab-content" id="others-flipfold" style="display: none;">
-                            <div class="table-container wide-table">
-                                <table class="price-table">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2">기종</th>
-                                            <th rowspan="2">용량</th>
-                                            <th colspan="2">SKT (109)</th>
-                                            <th colspan="2">KT (110)</th>
-                                            <th colspan="2">LGU+ (115)</th>
-                                        </tr>
-                                        <tr>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                            <th>이동</th>
-                                            <th>기변</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="model-name-cell">Z플립7</td>
-                                            <td class="capacity-cell">256G</td>
-                                            <td class="highlight-price">14</td>
-                                            <td>45</td>
-                                            <td class="highlight-price">28</td>
-                                            <td>19</td>
-                                            <td class="highlight-price">11</td>
-                                            <td>6</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="model-name-cell">Z폴드7</td>
-                                            <td class="capacity-cell">256G</td>
-                                            <td class="highlight-price">122</td>
-                                            <td>135</td>
-                                            <td class="highlight-price">127</td>
-                                            <td>118</td>
-                                            <td class="highlight-price">110</td>
-                                            <td>107</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="table-note" style="text-align: right; margin-top: 15px;">* 위 시세는 공시지원금 기준이며, 번호이동 / 기기변경
                     손입니다. (단위: 만원)</div>
 
@@ -1113,17 +645,32 @@
                         // 각 테이블 컨테이너 순회하여 일치하는 행이 없으면 테이블 전체 가리기
                         document.querySelectorAll('.table-container').forEach(container => {
                             let hasVisibleRow = false;
-                            const rows = container.querySelectorAll('.price-table tbody tr');
+                            const rows = Array.from(container.querySelectorAll('.price-table tbody tr'));
+
+                            // rowspan 유지를 위해 모델별로 줄 넘김 그룹화
+                            const rowGroups = [];
+                            let currentGroup = [];
                             rows.forEach(row => {
-                                // rowspan 첫 행 및 연관 확인용 텍스트 필터링
-                                const rowText = row.textContent.toLowerCase().replace(/\s+/g, '');
-                                if (rowText.includes(searchTerm)) {
-                                    row.style.display = '';
-                                    hasVisibleRow = true;
+                                if (row.querySelector('.model-name-cell')) {
+                                    if (currentGroup.length > 0) rowGroups.push(currentGroup);
+                                    currentGroup = [row];
                                 } else {
-                                    row.style.display = 'none';
+                                    currentGroup.push(row);
                                 }
                             });
+                            if (currentGroup.length > 0) rowGroups.push(currentGroup);
+
+                            rowGroups.forEach(group => {
+                                // 그룹 내 하나라도 검색어가 포함되어 있는지 확인
+                                const groupMatches = group.some(row => row.textContent.toLowerCase().replace(/\s+/g, '').includes(searchTerm));
+                                if (groupMatches) {
+                                    group.forEach(row => row.style.display = '');
+                                    hasVisibleRow = true;
+                                } else {
+                                    group.forEach(row => row.style.display = 'none');
+                                }
+                            });
+
                             // 일치하는 행이 없으면 테이블 숨김
                             container.style.display = hasVisibleRow ? 'block' : 'none';
                         });

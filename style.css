@@ -155,7 +155,8 @@ body {
 /* Hero Banner */
 .hero-banner {
     min-height: 100vh;
-    padding: 8rem 2rem 4rem;
+    padding: 10rem 2rem 4rem;
+    /* Increased to avoid overlap with ticker */
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
     position: relative;
     overflow: hidden;
@@ -1672,13 +1673,12 @@ body {
     width: 100%;
     overflow: hidden;
     background-color: rgba(33, 37, 41, 0.95);
-    /* Slight transparency looks premium over banner */
     color: #f8f9fa;
-    padding: 8px 0;
-    box-sizing: content-box;
+    padding: 12px 0;
+    line-height: 1.5;
+    box-sizing: border-box;
     position: absolute;
     top: 80px;
-    /* Offset to appear right below the fixed PC navbar */
     left: 0;
     z-index: 100;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -1854,6 +1854,48 @@ body {
     .ticker-wrap {
         top: 60px;
         /* Height of the mobile navbar */
+        padding: 10px 0;
+    }
+
+    .hero-banner {
+        padding-top: 9rem;
+        /* Prevent mobile hero badge from overlapping with ticker */
+    }
+
+    .guide-box {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 1rem 0.5rem;
+    }
+
+    .guide-item {
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0;
+        border-bottom: none;
+        border-right: 1px solid #e9ecef;
+    }
+
+    .guide-item:last-child {
+        border-right: none;
+    }
+
+    .guide-icon {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .guide-text {
+        text-align: center;
+    }
+
+    .guide-text p {
+        font-size: 0.65rem;
+        word-break: keep-all;
     }
 
     .today-date-box {
