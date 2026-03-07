@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const starRating = document.getElementById('star-rating');
     const stars = starRating.querySelectorAll('.star');
     const ratingInput = document.getElementById('review-rating');
-    const totalReviewsCount = document.getElementById('total-reviews-count');
 
     // Photo Upload related elements
     const photoInput = document.getElementById('review-photo');
@@ -190,8 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const snapshot = await db.collection('reviews').orderBy('timestamp', 'desc').get();
             reviewsContainer.innerHTML = ''; // Clear loading state
-
-            totalReviewsCount.textContent = snapshot.size;
 
             if (snapshot.empty) {
                 reviewsContainer.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 2rem; color: #868e96;">아직 등록된 후기가 없습니다. 첫 번째 후기의 주인공이 되어주세요!</div>';

@@ -1678,7 +1678,8 @@ body {
     line-height: 1.5;
     box-sizing: border-box;
     position: absolute;
-    top: 80px;
+    top: 92px;
+    /* Increased to prevent overlap with navbar */
     left: 0;
     z-index: 100;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
