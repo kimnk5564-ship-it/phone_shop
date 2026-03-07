@@ -24,16 +24,16 @@
 .login-page .elem-1 {
     width: 600px;
     height: 600px;
-    background: rgba(77, 171, 247, 0.15);
+    background: radial-gradient(circle, rgba(77, 171, 247, 0.15) 0%, rgba(77, 171, 247, 0) 70%);
     /* Primary Light */
     top: -200px;
     left: -200px;
 }
 
 .login-page .elem-2 {
-    width: 500px;
-    height: 500px;
-    background: rgba(0, 86, 179, 0.1);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 86, 179, 0.1) 0%, rgba(0, 86, 179, 0) 70%);
     /* Primary Dark */
     bottom: -150px;
     right: -100px;
