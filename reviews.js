@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const ratingInput = document.getElementById('review-rating');
     const totalReviewsCount = document.getElementById('total-reviews-count');
 
+    // Photo Upload related elements
+    const photoInput = document.getElementById('review-photo');
+    const photoPreviewContainer = document.getElementById('photo-preview-container');
+    const photoPreview = document.getElementById('photo-preview');
+    const removePhotoBtn = document.getElementById('remove-photo-btn');
+    let base64PhotoData = null;
+
     let currentUser = null;
     let isAdmin = false;
 
@@ -38,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reviewForm.reset();
         stars.forEach(s => s.classList.remove('active'));
         ratingInput.value = '';
+        clearPhoto();
     });
 
     // Close Modal on clicking outside
@@ -46,6 +54,70 @@ document.addEventListener('DOMContentLoaded', () => {
             closeBtn.click();
         }
     });
+
+    // Handle Photo Selection and Resizing
+    photoInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) {
+            clearPhoto();
+            return;
+        }
+
+        if (!file.type.startsWith('image/')) {
+            alert('이미지 파일만 업로드 가능합니다.');
+            clearPhoto();
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                // Resize image using Canvas to save DB storage space
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 800;
+                const MAX_HEIGHT = 800;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Convert to compressed jpeg base64
+                base64PhotoData = canvas.toDataURL('image/jpeg', 0.8);
+
+                photoPreview.src = base64PhotoData;
+                photoPreviewContainer.style.display = 'block';
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    removePhotoBtn.addEventListener('click', () => {
+        clearPhoto();
+    });
+
+    function clearPhoto() {
+        photoInput.value = '';
+        photoPreview.src = '';
+        photoPreviewContainer.style.display = 'none';
+        base64PhotoData = null;
+    }
 
     // Star Rating Logic
     stars.forEach(star => {
@@ -82,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = '등록 중...';
 
         try {
-            await db.collection('reviews').add({
+            const reviewData = {
                 authorUid: currentUser.uid,
                 authorEmail: currentUser.email,
                 authorName: currentUser.displayName || currentUser.email.split('@')[0],
@@ -91,7 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 location: location,
                 content: content,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
+            };
+
+            if (base64PhotoData) {
+                reviewData.photoData = base64PhotoData;
+            }
+
+            await db.collection('reviews').add(reviewData);
 
             alert('소중한 후기가 등록되었습니다! 감사합니다.');
             closeBtn.click();
@@ -158,6 +236,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Stars str
         const starsStr = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
 
+        let photoHtml = '';
+        if (review.photoData) {
+            photoHtml = `
+            <div class="review-gallery" style="display:flex; gap:0.5rem; margin-bottom:1rem; overflow-x:auto; padding-bottom:0.5rem; scrollbar-width:none;">
+                <img src="${review.photoData}" alt="리뷰 사진" onclick="window.open('${review.photoData}', '_blank')" style="height:120px; border-radius:8px; cursor:pointer; border:1px solid #e9ecef; object-fit:cover;">
+            </div>
+            `;
+        }
+
         let html = `
             <div class="review-header" style="margin-bottom: 1rem; border-bottom: none; padding-bottom: 0;">
                 <div class="reviewer-info">
@@ -167,10 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="review-date">${dateStr}</span>
             </div>
             
-            <!-- Dummy Photo Gallery for UI -->
-            <div class="review-gallery" style="display:flex; gap:0.5rem; margin-bottom:1rem; overflow-x:auto; padding-bottom:0.5rem; scrollbar-width:none;">
-                <div style="width:80px; height:80px; background:#f1f3f5; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#adb5bd; font-size:1.5rem;">📸</div>
-            </div>
+            ${photoHtml}
 
             <p class="review-text" style="font-style: normal; margin-bottom: 1.5rem;">${escapeHTML(review.content)}</p>
             <div class="review-footer" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid #f8f9fa;">
