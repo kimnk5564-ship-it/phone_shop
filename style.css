@@ -2171,14 +2171,62 @@ body {
     color: var(--text-dark);
 }
 
-[data-theme="dark"] .section-desc {
-    color: #adb5bd;
+[data-theme="dark"] .section-desc,
+[data-theme="dark"] .location-sub,
+[data-theme="dark"] .review-text,
+[data-theme="dark"] .feature-card p,
+[data-theme="dark"] .step-card p,
+[data-theme="dark"] .card p,
+[data-theme="dark"] .benefit-list li,
+[data-theme="dark"] .price-origin,
+[data-theme="dark"] .bar-percent,
+[data-theme="dark"] .profile-info p,
+[data-theme="dark"] .stats-number,
+[data-theme="dark"] .dashboard-desc {
+    color: #ced4da;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] .price-sale,
+[data-theme="dark"] .card h3,
+[data-theme="dark"] .feature-card h3,
+[data-theme="dark"] .step-card h3,
+[data-theme="dark"] .reviewer-info h4,
+[data-theme="dark"] .location-card h3,
+[data-theme="dark"] .stat-title,
+[data-theme="dark"] .benefit-list li strong {
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .price-cell {
+    background-color: #25262b;
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+/* Also ensure table text is visible in dark mode */
+[data-theme="dark"] th,
+[data-theme="dark"] td {
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] th {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] tr:hover td {
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
 [data-theme="dark"] input,
 [data-theme="dark"] select,
-[data-theme="dark"] textarea,
-[data-theme="dark"] .price-cell {
+[data-theme="dark"] textarea {
     background-color: #25262b;
     color: var(--text-dark);
     border-color: var(--border-color);
