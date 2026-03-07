@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (snapshot.empty) {
                 tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #868e96;">가입된 회원이 없습니다.</td></tr>';
+                const countElem = document.getElementById('stat-total-users');
+                if (countElem) countElem.innerText = '0';
                 return;
             }
 
@@ -30,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 return getMs(b.createdAt) - getMs(a.createdAt);
             });
+
+            // Update stats
+            const countElem = document.getElementById('stat-total-users');
+            if (countElem) countElem.innerText = users.length.toLocaleString();
 
             users.forEach(data => {
                 // Format Date
@@ -73,15 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function migrateLocalUsers() {
-        if (localStorage.getItem('users_migrated_v2') === 'true') return;
-
         try {
             const localUsersStr = localStorage.getItem('users');
-            if (!localUsersStr) {
-                localStorage.setItem('users_migrated_v2', 'true');
-                return;
-            }
+            if (!localUsersStr) return;
+
             const localUsers = JSON.parse(localUsersStr);
+            let migratedCount = 0;
             const promises = Object.keys(localUsers).map(username => {
                 const u = localUsers[username];
                 const docRef = db.collection('users').doc('local_' + username);
@@ -93,16 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             name: u.name || username,
                             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                             source: 'localStorage_migration'
+                        }).then(() => {
+                            migratedCount++;
                         });
                     }
                 });
             });
 
             Promise.all(promises).then(() => {
-                localStorage.setItem('users_migrated_v2', 'true');
-                console.log('Migrated old local users to Firestore successfully.');
-                // 1초 뒤에 목록 다시 불러오기 (데이터 동기화 완료 후)
-                setTimeout(loadAllUsers, 1000);
+                if (migratedCount > 0) {
+                    console.log('Migrated ' + migratedCount + ' old local users to Firestore successfully.');
+                }
             }).catch(console.error);
 
         } catch (e) {

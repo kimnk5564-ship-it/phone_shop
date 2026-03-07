@@ -406,28 +406,10 @@
         <script src="auth.js"></script>
         <script>
             function loadAdminStats() {
-                // Get Total Users
-                // Sync local users if they are higher than Firebase (for initial migration)
-                let localUsersCount = 0;
-                try {
-                    const localUsers = JSON.parse(localStorage.getItem('users') || '{}');
-                    localUsersCount = Object.keys(localUsers).length;
-                } catch (e) { }
+                // Get Total Users - 이제 admin-users.js 에서 실제 Firestore 데이터 기준으로 표시합니다.
+                document.getElementById('stat-total-users').innerText = '집계중...';
 
-                db.collection('stats').doc('users').onSnapshot((doc) => {
-                    let count = doc.exists ? doc.data().count : 0;
-
-                    // One-time sync for existing local users
-                    if (localUsersCount > count) {
-                        db.collection('stats').doc('users').set({ count: localUsersCount }, { merge: true });
-                        count = localUsersCount;
-                    }
-
-                    document.getElementById('stat-total-users').innerText = count.toLocaleString();
-                }, (error) => {
-                    console.error("Error fetching users count:", error);
-                    document.getElementById('stat-total-users').innerText = '-';
-                });
+                // Get Today's Visits
 
                 // Get Today's Visits
                 const today = new Date().toISOString().split('T')[0];
