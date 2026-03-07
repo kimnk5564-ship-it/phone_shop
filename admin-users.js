@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (snapshot.empty) {
                 tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #868e96;">가입된 회원이 없습니다.</td></tr>';
-                const countElem = document.getElementById('stat-total-users');
-                if (countElem) countElem.innerText = '0';
                 return;
             }
 
@@ -32,10 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 return getMs(b.createdAt) - getMs(a.createdAt);
             });
-
-            // Update stats
-            const countElem = document.getElementById('stat-total-users');
-            if (countElem) countElem.innerText = users.length.toLocaleString();
 
             users.forEach(data => {
                 // Format Date
