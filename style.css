@@ -2107,6 +2107,10 @@ body {
     color: #868e96;
 }
 
+.bar-label {
+    white-space: nowrap;
+}
+
 /* ---------------------------------
    UI Enhancements (Dark Mode, etc)
 --------------------------------- */
@@ -2201,6 +2205,37 @@ body {
 [data-theme="dark"] .stat-title,
 [data-theme="dark"] .benefit-list li strong {
     color: var(--text-dark);
+}
+
+/* Fix text contrast on hardcoded backgrounds & specific elements */
+[data-theme="dark"] .page-header-spacing {
+    background: var(--bg-light) !important;
+}
+
+[data-theme="dark"] .card-badge {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .review-model,
+[data-theme="dark"] .review-location {
+    color: #ced4da !important;
+}
+
+[data-theme="dark"] .admin-tab-btn {
+    background: #2c2e33 !important;
+    color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .admin-tab-btn.active {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+
+/* Mobile navigation link color fix in dark drawer */
+@media (max-width: 768px) {
+    [data-theme="dark"] .nav-links a {
+        color: var(--text-dark) !important;
+    }
 }
 
 [data-theme="dark"] .price-cell {
