@@ -19,7 +19,8 @@ const Auth = {
                 Kakao.init('17acc2b514f0416cc0393fffe4acfb20');
             }
 
-            Kakao.Auth.login({
+            // In Kakao SDK v2, popup login is done via loginForm (or authorize for redirect)
+            Kakao.Auth.loginForm({
                 success: function (authObj) {
                     // Request user info
                     Kakao.API.request({
