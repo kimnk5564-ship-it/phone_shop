@@ -224,3 +224,31 @@
         padding: 2.5rem 1.5rem;
     }
 }
+
+/* Ensure login inputs do not turn black in dark mode to match the white container */
+[data-theme="dark"] .login-page input {
+    background: #f8f9fa !important;
+    color: #212529 !important;
+    border-color: #dee2e6 !important;
+}
+
+[data-theme="dark"] .login-page input:focus {
+    background: #ffffff !important;
+    border-color: var(--primary-light) !important;
+}
+
+[data-theme="dark"] .login-page .input-group label {
+    color: #495057 !important;
+}
+
+[data-theme="dark"] .login-page h2 {
+    color: #212529 !important;
+}
+
+[data-theme="dark"] .login-page p {
+    color: #6c757d !important;
+}
+
+[data-theme="dark"] .login-container {
+    background: rgba(255, 255, 255, 0.98) !important;
+}
